@@ -1,0 +1,449 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui;
+
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.Poi;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.UiSettings;
+import com.baidu.mapapi.model.LatLng;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.PreferencesUtils;
+import com.topwellsoft.jnhouse_android.realtime_order.ByPersonActivity;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.calendar.CalendarActivity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.OperationDialog;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+/**
+ * Created by admin on 2016/5/23.
+ */
+public class TpHouseFragment extends Fragment implements View.OnClickListener {
+    @Bind(R.id.mapView)
+    MapView mapView;
+    @Bind(R.id.layout_btn)
+    LinearLayout layout_btn;
+    @Bind(R.id.btn_see1)
+    Button btn_see1;
+    @Bind(R.id.btn_see2)
+    Button btn_see2;
+    @Bind(R.id.btn_by_people)
+    Button btn_by_people;
+    @Bind(R.id.btn_by_house)
+    Button btn_by_house;
+    @Bind(R.id.btn_by_store)
+    Button btn_by_store;
+    @Bind(R.id.select)
+    ImageView select;
+    private boolean isShown = false;
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener ;
+    private BaiduMap mBaiduMap;
+    MapLoaded mapLoaded;
+    UiSettings mUiSettings;
+
+    private MarkerOptions markerOptions;
+    private Marker marker;
+    private float downX, downY;
+    private float width, height;
+    private float moveX, moveY;
+    private String TAG = "###TpHouseFragment";
+    private View view;
+    private float px;
+    private float py;
+    private MyDiaLog diaLog;
+    private OperationDialog operationDialog;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.tp_house_main, container, false);
+        ButterKnife.bind(this, view);
+        initEvent();
+        initDialog();
+        width = getActivity().getWindow().getWindowManager().getDefaultDisplay().getWidth();
+        height = getActivity().getWindow().getWindowManager().getDefaultDisplay().getHeight();
+
+
+
+        // 济房网，当前默认为济南
+
+        LatLng p = new LatLng(36.67221, 117.0487851);
+        MapStatus mMapStatus = new MapStatus.Builder().target(p).zoom(11).build();
+
+        mBaiduMap = mapView.getMap();
+        mUiSettings = mBaiduMap.getUiSettings();
+        mUiSettings.setRotateGesturesEnabled(false);
+        mUiSettings.setOverlookingGesturesEnabled(false);
+
+        MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        mBaiduMap.animateMapStatus(u);
+        mapLoaded = new MapLoaded();
+        mBaiduMap.setOnMapLoadedCallback(mapLoaded);
+        //mBaiduMap.setMyLocationEnabled(true);
+
+        return view;
+    }
+
+    public void initOperationDialog() {
+        operationDialog = new OperationDialog(getActivity());
+        operationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        operationDialog.setCancelable(true);
+        operationDialog.setCanceledOnTouchOutside(true);
+        operationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        operationDialog.setListener(new OperationDialog.ButtonListener() {
+            @Override
+            public void LeftListener() {
+                operationDialog.dismiss();
+            }
+
+            @Override
+            public void RighttListener() {
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("flag", "schedule");
+                startActivity(intent);
+            }
+        });
+        operationDialog.show();
+        operationDialog.setContent("您有未完成预约，暂时无法使用此功能");
+        operationDialog.setBtn_right("去查看");
+        operationDialog.setBtn_left("取消");
+        operationDialog.setCancelable(false);
+    }
+
+    public void initDialog() {
+        diaLog = new MyDiaLog(getActivity());
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    public void initEvent() {
+        btn_see1.setOnClickListener(this);
+        btn_see2.setOnClickListener(this);
+        btn_by_people.setOnClickListener(this);
+        btn_by_house.setOnClickListener(this);
+        btn_by_store.setOnClickListener(this);
+        select.setX(MainTabsActivity.sx);
+        select.setY(MainTabsActivity.sy);
+        select.setOnClickListener(this);
+
+        select.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downX = event.getRawX();
+                        downY = event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        moveX = event.getRawX();
+                        moveY = event.getRawY();
+                        px = select.getX() + (moveX - downX);
+                        py = select.getY() + (moveY - downY);
+                        if (px > width - select.getWidth()) {
+                            px = width - select.getWidth();
+                        }
+                        if (px < 0) {
+                            px = 0;
+                        }
+                        if (py > height * 0.83f) {
+                            py = height * 0.83f;
+                        }
+                        if (py < getStatusBarHeight()) {
+                            py = getStatusBarHeight();
+                        }
+
+                        select.setX(px);
+                        select.setY(py);
+                        downX = moveX;
+                        downY = moveY;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        MainTabsActivity.sx = px;
+                        MainTabsActivity.sy = py;
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.btn_see1:
+                intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("flag", "schedule");
+                startActivity(intent);
+                break;
+            case R.id.btn_see2:
+                intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("flag", "history");
+                startActivity(intent);
+                break;
+            case R.id.btn_by_people:
+                diaLog.show();
+                getUserState(JnHouse_Record.Order_Init);
+                break;
+            case R.id.btn_by_house:
+                showToast("以房找人");
+                break;
+            case R.id.btn_by_store:
+                showToast("以门店找房");
+                break;
+            case R.id.select:
+                float h = height * 0.83f + 120;
+                float hh = layout_btn.getHeight();
+                Log.i(TAG, "hh-h:  " + (h - hh));
+                if (py >= h - hh) {
+                    layout_btn.setY(h - hh);
+                } else {
+                    layout_btn.setY(py);
+                }
+                layout_btn.setX(0);
+                isShown = !isShown;
+                if (isShown) {
+                    layout_btn.setVisibility(View.VISIBLE);
+                } else {
+                    layout_btn.setVisibility(View.INVISIBLE);
+                }
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //Receive Location
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("time : ");
+            sb.append(location.getTime());
+            sb.append("\nerror code : ");
+            sb.append(location.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(location.getRadius());
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());// 单位：公里每小时
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+                sb.append("\nheight : ");
+                sb.append(location.getAltitude());// 单位：米
+                sb.append("\ndirection : ");
+                sb.append(location.getDirection());// 单位度
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                sb.append("\ndescribe : ");
+                sb.append("gps定位成功");
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                //运营商信息
+                sb.append("\noperationers : ");
+                sb.append(location.getOperators());
+                sb.append("\ndescribe : ");
+                sb.append("网络定位成功");
+            } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                sb.append("\ndescribe : ");
+                sb.append("离线定位成功，离线定位结果也是有效的");
+            } else if (location.getLocType() == BDLocation.TypeServerError) {
+                sb.append("\ndescribe : ");
+                sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+            } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                sb.append("\ndescribe : ");
+                sb.append("网络不同导致定位失败，请检查网络是否通畅");
+            } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                sb.append("\ndescribe : ");
+                sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+            }
+            sb.append("\nlocationdescribe : ");
+            sb.append(location.getLocationDescribe());// 位置语义化信息
+            List<Poi> list = location.getPoiList();// POI数据
+            if (list != null) {
+                sb.append("\npoilist size = : ");
+                sb.append(list.size());
+                for (Poi p : list) {
+                    sb.append("\npoi= : ");
+                    sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
+                }
+            }
+
+            MyLocationData locData = new MyLocationData.Builder().latitude(location.getLatitude()).longitude(location.getLongitude()).build();
+
+            //设置图标在地图上的位置
+            mBaiduMap.setMyLocationData(locData);
+            // 开始移动百度地图的定位地点到中心位置
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+
+            MapStatus mMapStatus = new MapStatus.Builder().target(ll).zoom(16).build();
+            MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+            mBaiduMap.animateMapStatus(u);
+            //LatLng latLng = mBaiduMap.getMapStatus().target;
+            //准备 marker 的图片
+            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.location_red);
+            //准备 marker option 添加 marker 使用
+            markerOptions = new MarkerOptions().icon(bitmap).position(ll);
+            //获取添加的 marker 这样便于后续的操作
+            marker = (Marker) mBaiduMap.addOverlay(markerOptions);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    public void showToast(String str) {
+        ToastUtil.makeText(getActivity(), str, ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+    }
+
+    public void getUserState(String url) {
+        LoginEntity loginEntity = (LoginEntity) PreferencesUtils.getObject(getActivity(), "loginEntity");
+        AjaxParams params = new AjaxParams();
+        params.put("user_id", loginEntity.getUser_id());
+        params.put("userUUID", loginEntity.getUserUUID());
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing()) {
+                    diaLog.dismiss();
+                }
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                Log.i("###", t.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    LoginEntity login = gson.fromJson(t.toString(), new TypeToken<LoginEntity>() {
+                    }.getType());
+                    if (login != null) {
+                        switch (login.getCode()) {
+                            case 1901:
+                                initOperationDialog();
+                                break;
+                            case 0:
+                                Intent intent = new Intent(getActivity(), ByPersonActivity.class);
+                                startActivity(intent);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    Log.i("###", t.toString());
+                    if (diaLog.isShowing()) {
+                        diaLog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public class MapLoaded implements BaiduMap.OnMapLoadedCallback {
+        @Override
+        public void onMapLoaded() {
+            //countyLevelNewHouse();
+            myListener = new MyLocationListener();
+            mLocationClient = new LocationClient(getActivity());     //声明LocationClient类
+            mLocationClient.registerLocationListener(myListener);    //注册监听函数
+            mLocationClient.start();
+        }
+    }
+
+}

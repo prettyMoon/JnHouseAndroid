@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.topwellsoft.jnhouse_android.global_app.SettingActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/app_main_color">
+
+        <ImageView
+            android:id="@+id/setting_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_background"
+            android:src="@drawable/icon_titlebar_back"
+            android:gravity="center_vertical"
+            android:textColor="@color/background_white"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:text="设置"
+            android:textColor="@color/app_font_color_highlight"
+            android:textSize="20sp"
+            android:gravity="center_vertical|center_horizontal" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="7dp"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_cathe_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_white">
+
+            <TextView
+                android:id="@+id/setting_remove_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="清理缓存" />
+
+            <TextView
+                android:id="@+id/setting_showcache_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:drawableRight="@drawable/yjt"
+                android:text="缓存大小"
+                android:gravity="right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/app_font_color_grey" />
+
+        <LinearLayout
+            android:id="@+id/setting_check_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_white">
+
+            <TextView
+                android:id="@+id/setting_update_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:drawableRight="@drawable/yjt"
+                android:text="检查更新" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="7dp"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/setting_option"
+            android:onClick="setting"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_white">
+
+            <TextView
+                android:id="@+id/setting_two_dimension_code_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:drawableRight="@drawable/yjt"
+                android:text="意见反馈" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/app_font_color_grey" />
+
+        <LinearLayout
+            android:id="@+id/setting_about_we"
+            android:onClick="setting"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_white">
+
+            <TextView
+                android:id="@+id/setting_about_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:drawableRight="@drawable/yjt"
+                android:text="关于我们" />
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="7dp"></LinearLayout>
+
+        <Button
+            android:id="@+id/setting_exit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/background_white"
+            android:text="退出登录" />-->
+
+    </LinearLayout>
+
+</LinearLayout>

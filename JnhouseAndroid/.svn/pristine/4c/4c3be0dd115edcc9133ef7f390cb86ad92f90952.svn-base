@@ -1,0 +1,18 @@
+package jnhouse.topwellsoft.com.jnhouse_android.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by topwellsoft on 2016/7/16.
+ */
+public class LeaseEntity implements Serializable {
+    private int code;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+}

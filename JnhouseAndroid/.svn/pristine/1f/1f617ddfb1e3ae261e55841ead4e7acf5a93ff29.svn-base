@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.mine.Nickname">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/tp_new_house_title"/>
+            <TextView
+                android:id="@+id/title_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:layout_gravity="center"
+                android:textColor="@color/app_font_color_highlight"
+                android:textSize="17sp"/>
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="Click"
+                android:textSize="17sp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/app_font_color_highlight"/>
+
+        </FrameLayout>
+        <TextView
+            android:layout_marginRight="12dp"
+            android:id="@+id/nickname_save_tv"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/app_font_color_highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/app_font_color_highlight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:background="@color/app_font_color_highlight"
+            android:id="@+id/nickname_et"
+            android:textColor="@color/app_font_color_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/cancle"
+            android:id="@+id/nickname_iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,163 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.login;
+
+import android.app.ProgressDialog;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TabHost;
+
+import com.topwellsoft.androidutils.StyleUtils;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.util.TabManager;
+
+
+public class TpLoginFragmentActivity extends FragmentActivity implements OnClickListener{
+	
+	private RadioButton radio_tab_login, radio_tab_register;
+	private TabManager mTabManager;
+	private TabHost mTabHost;
+	private EditText phone;
+	private ProgressDialog progressDialog;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		initView();
+		StyleUtils.initStatusBar(getWindow());
+	}
+
+
+	
+	public void initView(){
+		
+		setContentView(R.layout.tp_login_tabs);
+		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+		mTabHost.setup();
+		mTabManager = new TabManager(this, mTabHost, android.R.id.tabcontent);
+		mTabManager.addTab(mTabHost.newTabSpec("马上登录").setIndicator(""),TpLoginFragment.class, null);
+		mTabManager.addTab(mTabHost.newTabSpec("马上注册").setIndicator(""),TpRegisterFragment.class, null);
+		radio_tab_login = (RadioButton) findViewById(R.id.button21);
+		radio_tab_register = (RadioButton) findViewById(R.id.button22);
+		radio_tab_login.setChecked(true);
+		radio_tab_login.setOnClickListener(this);
+		radio_tab_register.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+
+		case R.id.button21:
+
+			mTabHost.setCurrentTab(0);
+			radio_tab_login.setChecked(true);
+			radio_tab_register.setChecked(false);
+
+			break;
+
+		case R.id.button22:
+
+			mTabHost.setCurrentTab(1);
+			radio_tab_login.setChecked(false);
+			radio_tab_register.setChecked(true);
+
+			break;
+		}
+
+	}
+
+//	public void getPDAServerData(String action, AjaxParams params, final String flag) {
+//
+//		FinalHttp fh = new FinalHttp();
+//		fh.get(action, params, new AjaxCallBack<Object>() {
+//
+//			@Override
+//			public void onFailure(Throwable t, int errorNo, String strMsg) {
+//
+//				progressDialog.dismiss();
+//				Toast.makeText(TpLoginFragmentActivity.this, "登录失败",Toast.LENGTH_SHORT).show();
+//			}
+//
+//			@Override
+//			public void onLoading(long count, long current) {
+//				super.onLoading(count, current);
+//			}
+//
+//			@Override
+//			public void onStart() {
+//				super.onStart();
+//			}
+//
+//			@Override
+//			public void onSuccess(Object t) {
+//
+//				if(flag.equals("0")){
+//					login(t);
+//				}else if(flag.equals("1")){
+//					savePersonInfo(t);
+//				}
+//
+//			}
+//		});
+//	}
+
+//	public void login(Object t){
+//
+//		try {
+//			JSONObject jsonObject = new JSONObject(t.toString());
+//
+//			Gson gson = new Gson();
+//			Result info = gson.fromJson(jsonObject.getString("data"),
+//					new TypeToken<Result>() {}.getType());
+//
+//			if(info != null){
+//
+//				switch(info.getResult()){
+//
+//					case 0:
+//						progressDialog.dismiss();
+//						Toast.makeText(TpLoginFragmentActivity.this, "该用户不存在!", 1).show();
+//						break;
+//
+//					case 1:
+//						progressDialog.dismiss();
+//						AjaxParams aParams = new AjaxParams();
+//						aParams.put("userId", info.getUserId());
+//						getPDAServerData(Zero_Record.Key_personInfo,aParams,"1");
+//						break;
+//
+//					case 2:
+//
+//						progressDialog.dismiss();
+//						PersonInfo personInfo = new PersonInfo();
+//						personInfo.setUserId(info.getUserId());
+//						PreferencesUtils.putObject(TpLoginFragmentActivity.this, "PersonInfo", personInfo);
+//						Intent intent = new Intent();
+//						intent.putExtra("Flag", "0");
+//						intent.setClass(this, .class);
+//						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(intent);
+//
+//						break;
+//				}
+//
+//			}else{
+//
+//				progressDialog.dismiss();
+//				Toast.makeText(TpLoginFragmentActivity.this, "用户名或密码错误", 1).show();
+//			}
+//
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+}

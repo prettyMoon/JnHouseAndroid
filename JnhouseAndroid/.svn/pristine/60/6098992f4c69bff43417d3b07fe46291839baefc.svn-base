@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/app_main_color"
+        android:gravity="center">
+
+        <ImageView
+
+            android:id="@+id/icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_background"
+            android:gravity="center_vertical"
+            android:src="@drawable/icon_titlebar_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/app_main_color"
+            android:gravity="center"
+            android:text="找房"
+            android:textColor="@color/background_white"
+            android:textSize="20sp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="56dp" />
+    </RelativeLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#c0ffffff"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_by_people"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/btn_pressed_green_solid"
+            android:text="以人找房"
+            android:textColor="@color/background_white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_by_house"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/top_bar_normal_bg"
+            android:text="以房找人"
+            android:textColor="@color/background_white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_by_store"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/tp_buy"
+            android:text="以门店找房"
+            android:textColor="@color/background_white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/select"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/folad_button_backgraound"
+        android:padding="10dp"
+        android:src="@drawable/folad_button"
+        android:layout_alignTop="@+id/mapView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

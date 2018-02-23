@@ -1,0 +1,69 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.topwellsoft.androidutils.PreferencesUtils;
+import com.topwellsoft.baidumap.BaiduMapHelper;
+import com.topwellsoft.jnhouse_android.constant.GlobalParas;
+
+import java.io.IOException;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.login.TpLoginFragmentActivity;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ActivityUtils;
+/**
+ * Created by admin on 2016/6/7.
+ */
+public class StartActivity extends Activity {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.start_main);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                /* Create an Intent that will start the Menu-Activity. */
+                try {
+                    isFirst();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 2 * 1000);
+        BaiduMapHelper.initBaiduMap(this.getApplication());//初始化百度地图
+        try {
+            ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), this.getPackageManager().GET_META_DATA);
+            String msg = appInfo.metaData.getString("ServerURL");
+            GlobalParas.URL = msg;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void isFirst() throws IOException {
+        LoginEntity info = (LoginEntity) PreferencesUtils.getObject(this, "loginEntity");
+        if (info != null) {
+            Intent intent = new Intent();
+            intent.setClass(this, MainTabsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(StartActivity.this, TpLoginFragmentActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+    }
+}

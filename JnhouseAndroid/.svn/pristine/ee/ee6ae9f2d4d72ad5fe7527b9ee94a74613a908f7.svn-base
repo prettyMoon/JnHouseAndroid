@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.decoration.Confirm">
+
+    <ImageView
+        android:id="@+id/confirm_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ok"/>
+
+    <TextView
+        android:id="@+id/confirm_tv"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提交成功"
+        android:textSize="25sp"
+        />
+    <Button
+        android:layout_below="@+id/confirm_tv"
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/tp_index_second_house_title"
+        android:layout_margin="20dp"
+        android:text="确定"
+        android:onClick="Click"
+        android:textColor="@color/font"
+        android:textSize="17sp"/>
+
+</RelativeLayout>

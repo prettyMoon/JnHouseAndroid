@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="请选择看房时间"
+        android:textColor="@color/gray_normal" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/font_black_4" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/btn_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_post_service_dialog_btn_selected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="随时\n看房"
+                android:textColor="@color/tp_decoration" />
+
+            <TextView
+                android:id="@+id/btn_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+
+            <TextView
+                android:id="@+id/btn_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_post_service_dialog_btn_unselected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="03-19\n今天"
+                android:textColor="@color/font_black_4" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/font_black_4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="时段:"
+            android:textColor="#000000"
+            android:textSize="@dimen/consult_ts_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/all_day"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/order_background"
+            android:gravity="center"
+            android:text="全天"
+            android:textColor="@color/font_black_4"
+            android:textSize="@dimen/consult_ts_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/evening"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/order_background"
+            android:gravity="center"
+            android:text="上午"
+            android:textColor="@color/font_black_4"
+            android:textSize="@dimen/consult_ts_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/afternoon"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/order_background"
+            android:gravity="center"
+            android:text="下午"
+            android:textColor="@color/font_black_4"
+            android:textSize="@dimen/consult_ts_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/night"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/order_background"
+            android:gravity="center"
+            android:text="晚上"
+            android:textColor="@color/font_black_4"
+            android:textSize="@dimen/consult_ts_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_aaaaa"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/layout_agent_background"
+        android:gravity="top"
+        android:hint="请输入看房要求"
+        android:maxLength="100"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:textColorHint="@color/font_black_4"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_post_service_dialog_btn_selected"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:text="确定"
+        android:textColor="@color/tp_decoration" />
+</LinearLayout>

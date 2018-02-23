@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/braw_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B户型"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/tp_index_second_house_title"
+       />
+    <ImageView
+        android:id="@+id/index_draw_item_image"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+
+        android:layout_centerHorizontal="true"
+        android:background="@color/black"
+        android:layout_below="@id/braw_title"/>
+
+    <TextView
+        android:id="@+id/index_draw_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/index_draw_item_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="some info"
+        android:textSize="12dp" />
+  <jnhouse.topwellsoft.com.jnhouse_android.view.FluidLayout
+      android:layout_width="120dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="2dp"
+      android:layout_below="@id/index_draw_desc"
+      android:layout_centerHorizontal="true"
+      android:id="@+id/draw_tag"/>
+
+
+</RelativeLayout>

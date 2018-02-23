@@ -1,0 +1,493 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.question;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.PreferencesUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.MyQuestionListAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.QuestionSingleListAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.MyQuestionEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.MyQuestionListEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.QuestionSingleListEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.QuestionSingleSortEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.util.DateTimeUtils;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView;
+
+/**
+ * Created by Administrator on 2016/7/11.
+ */
+public class QuestionListActivity extends Activity implements SmoothListView.ISmoothListViewListener {
+    private SmoothListView listView;
+    private ImageView img_back;
+    private TextView tv_title, tv_right;
+    private int page = 1;
+    private ArrayList<QuestionSingleSortEntity> singlelist = new ArrayList<QuestionSingleSortEntity>();
+    private QuestionSingleListAdapter singleadapter;
+    private ArrayList<MyQuestionEntity> mylist = new ArrayList<MyQuestionEntity>();
+    private MyQuestionListAdapter myadapter;
+    private String flag;
+    private QuestionSingleListEntity questionSingleListEntity;
+    private MyQuestionListEntity myQuestionListEntity;
+    private String sort_id = "";
+    private MyDiaLog diaLog;
+    private boolean haveSeen = false;
+    private ArrayList<String> nothing = new ArrayList<String>();
+    private OperationDialog operationDialog;
+
+    @Override
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_question_list);
+        initView();
+        initDialog();
+        initContent();
+        listView.setLoadMoreEnable(true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (flag.equals("theirs") || flag.equals("more")) {//指定分类的问题
+                    Intent intent = new Intent(QuestionListActivity.this, QuestionDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", singlelist.get(position - 1).getAskId());
+                    bundle.putString("flag", "theirs");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (flag.equals("mine")) {//我的问题
+                    Intent intent = new Intent(QuestionListActivity.this, QuestionDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", mylist.get(position - 1).getAskId());
+                    bundle.putString("flag", "mine");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    haveSeen = !haveSeen;
+                }
+            }
+        });
+
+    }
+
+    private void initDialog() {
+        diaLog = new MyDiaLog(QuestionListActivity.this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+        diaLog.show();
+    }
+
+    //判断跳转来源
+    public void initContent() {
+        if (flag.equals("theirs")) {//指定分类的问题
+            tv_title.setText("问答");
+            getQuestionServerData(JnHouse_Record.Wd_List, -1);
+        } else if (flag.equals("mine")) {//我的问题
+            tv_title.setText("我的提问");
+            getMyQuestionServerData(JnHouse_Record.My_Ask, -1);
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    tv_right.setVisibility(View.VISIBLE);
+                    tv_right.setText("删除");
+                    myadapter.setCanShown();
+                    myadapter.notifyDataSetChanged();
+                    tv_right.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (myadapter.getIsSelect().size() == 0) {
+                                ToastUtil.makeText(QuestionListActivity.this, "请选择您要删除的需求", ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+                            } else {
+                                initOperationDialog();
+                            }
+                        }
+                    });
+                    return true;
+                }
+            });
+        } else if (flag.equals("more")) {//更多
+            tv_title.setText("热门问答");
+            getQuestionServerData(JnHouse_Record.Wd_List, -1);
+        }
+    }
+
+    public void initOperationDialog() {
+        operationDialog = new OperationDialog(QuestionListActivity.this);
+        operationDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        operationDialog.setCancelable(true);
+        operationDialog.setCanceledOnTouchOutside(true);
+        operationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        operationDialog.setListener(new OperationDialog.ButtonListener() {
+            @Override
+            public void LeftListener() {
+                operationDialog.dismiss();
+                diaLog.show();
+                deleteQuestion(JnHouse_Record.Ask_Del);
+
+            }
+
+            @Override
+            public void RighttListener() {
+                operationDialog.dismiss();
+            }
+        });
+        operationDialog.show();
+        operationDialog.setContent("确定删除选中的您所选择的提问吗？");
+        operationDialog.setBtn_left("确认");
+        operationDialog.setBtn_right("取消");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (flag.equals("mine") && haveSeen) {
+            diaLog.show();
+            getMyQuestionServerData(JnHouse_Record.My_Ask, -1);
+        }
+    }
+
+    //获取要删除的问题的id
+    public String getIds() {
+        String str = "";
+        for (int i = 0; i < myadapter.getIsSelect().size(); i++) {
+            if (i == myadapter.getIsSelect().size() - 1) {
+                str += mylist.get(Integer.parseInt(myadapter.getIsSelect().get(i))).getAskId();
+                nothing.add(mylist.get(Integer.parseInt(myadapter.getIsSelect().get(i))).getAskId());
+            } else {
+                str += mylist.get(Integer.parseInt(myadapter.getIsSelect().get(i))).getAskId() + ",";
+                nothing.add(mylist.get(Integer.parseInt(myadapter.getIsSelect().get(i))).getAskId());
+            }
+        }
+        return str;
+    }
+
+    ///删除提问
+    public void deleteQuestion(String url) {
+        LoginEntity info = (LoginEntity) PreferencesUtils.getObject(this, "loginEntity");
+        if (info == null || info.getUserUUID() == null) {
+            ToastUtil.makeText(  this, "请重新登录",
+                    ToastUtil.LENGTH_SHORT)
+                    .setAnimation(R.style.PopToast).show();
+            return;
+        }
+        AjaxParams params = new AjaxParams();
+        params.put("askIds", getIds());
+        params.put("userUUID", info.getUserUUID());
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    String jsonString = t.toString();
+                    if (jsonString.startsWith("{\"code\":1")) {
+                        ToastUtil.makeText(QuestionListActivity.this, "未登录", ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+                    } else if (jsonString.startsWith("{\"code\":-1")) {
+                        ToastUtil.makeText(QuestionListActivity.this, "删除异常", ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+                    } else if (jsonString.startsWith("{\"code\":0")) {
+                        ToastUtil.makeText(QuestionListActivity.this, "删除成功", ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+                        myadapter.setCanShown();
+                        for (int i = 0; i < nothing.size(); i++) {
+                            for (int j = 0; j < mylist.size(); j++) {
+                                if (mylist.get(j).getAskId().equals(nothing.get(i))) {
+                                    mylist.remove(j);
+                                    break;
+                                }
+                            }
+                        }
+                        myadapter.notifyDataSetChanged();
+                    }
+                    diaLog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void initView() {
+        flag = getIntent().getExtras().getString("flag");
+        sort_id = getIntent().getExtras().getString("id");
+        listView = (SmoothListView) this.findViewById(R.id.smoothlistview_question);
+        listView.setSmoothListViewListener(this);
+        img_back = (ImageView) this.findViewById(R.id.question_img_back);
+        tv_right = (TextView) this.findViewById(R.id.tv_right);
+        tv_title = (TextView) this.findViewById(R.id.tv_middle);
+        tv_right.setVisibility(View.GONE);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getExtras().getString("flag").equals("mine")) {
+            if (myadapter.isCanShown()) {
+                myadapter.setCanShown();
+                myadapter.notifyDataSetChanged();
+                tv_right.setVisibility(View.GONE);
+            } else {
+                finish();
+            }
+        } else {
+            finish();
+
+        }
+
+    }
+
+    /**
+     * 从问答首页跳过来调用该方法
+     *
+     * @param url
+     * @param flag 是不是下拉刷新
+     */
+
+    public void getQuestionServerData(String url, final int flag) {
+
+        AjaxParams params = new AjaxParams();
+        params.put("ask_key", "");
+        params.put("catalogId", sort_id);
+        params.put("cur_index", page + "");
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                listView.stopLoadMore();
+                listView.stopRefresh();
+                if (diaLog.isShowing()) {
+                    diaLog.dismiss();
+                }
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    questionSingleListEntity = gson.fromJson(t.toString(), new TypeToken<QuestionSingleListEntity>() {
+                    }.getType());
+                    Log.i("#####", t.toString());
+                    if (page == 1) {
+                        if (flag > 0) {
+                            listView.stopRefresh();
+                        }
+                        singlelist = questionSingleListEntity.getWd_list();
+                        singleadapter = new QuestionSingleListAdapter(QuestionListActivity.this, singlelist);
+                        listView.setAdapter(singleadapter);
+
+                    } else {
+                        for (int i = 0; i < questionSingleListEntity.getWd_list().size(); i++) {
+                            singlelist.add(questionSingleListEntity.getWd_list().get(i));
+                        }
+                        listView.stopLoadMore();
+                        singleadapter.notifyDataSetChanged();
+                    }
+                    if (diaLog.isShowing()) {
+                        diaLog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 我的提问——请求方法
+     *
+     * @param url
+     */
+
+    public void getMyQuestionServerData(String url, final int flag) {
+        LoginEntity info = (LoginEntity) PreferencesUtils.getObject(this, "loginEntity");
+        if (info == null || info.getUserUUID() == null) {
+            ToastUtil.makeText(  this, "请重新登录",
+                    ToastUtil.LENGTH_SHORT)
+                    .setAnimation(R.style.PopToast).show();
+            return;
+        }
+        AjaxParams params = new AjaxParams();
+        params.put("user_id", info.getUser_id());
+        params.put("userUUID", info.getUserUUID());
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                listView.stopLoadMore();
+                listView.stopRefresh();
+                if (diaLog.isShowing()) {
+                    diaLog.dismiss();
+                }
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    myQuestionListEntity = gson.fromJson(t.toString(), new TypeToken<MyQuestionListEntity>() {
+                    }.getType());
+                    String jsonString = t.toString();
+                    if (jsonString.startsWith("{\"code\":1")) {
+                        ToastUtil.makeText(QuestionListActivity.this, "您未登录", ToastUtil.LENGTH_LONG).setAnimation(R.style.PopToast).show();
+                        if (diaLog.isShowing()) {
+                            diaLog.dismiss();
+                        }
+                        return;
+                    }
+                    if (myQuestionListEntity.getWd_list().size() == 0) {
+                        ToastUtil.makeText(QuestionListActivity.this, "您还未提问过", ToastUtil.LENGTH_LONG).setAnimation(R.style.PopToast).show();
+                        if (haveSeen) {
+                            mylist.clear();
+                            myadapter.notifyDataSetChanged();
+                            haveSeen = !haveSeen;
+                        }
+
+                        if (diaLog.isShowing()) {
+                            diaLog.dismiss();
+                        }
+                        return;
+                    }
+                    if (page == 1) {
+                        if (flag > 0) {
+                            listView.stopRefresh();
+                        }
+                        mylist = myQuestionListEntity.getWd_list();
+                        myadapter = new MyQuestionListAdapter(QuestionListActivity.this, mylist);
+                        listView.setAdapter(myadapter);
+
+                    } else {
+                        for (int i = 0; i < myQuestionListEntity.getWd_list().size(); i++) {
+                            mylist.add(myQuestionListEntity.getWd_list().get(i));
+                        }
+                        listView.stopLoadMore();
+                        myadapter.notifyDataSetChanged();
+                    }
+                    if (diaLog.isShowing()) {
+                        diaLog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void onRefresh() {
+        if (flag.equals("theirs") || flag.equals("more")) {//指定分类的问题
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page = 1;
+                    listView.setRefreshTime(DateTimeUtils.getTimeStr(DateTimeUtils.getNowTime(), "yyyy-MM-dd hh:mm:ss"));
+                    getQuestionServerData(JnHouse_Record.Wd_List, 1);
+                }
+            }, 2000);
+        } else if (getIntent().getExtras().getString("flag").equals("mine")) {//我的问题
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page = 1;
+                    listView.setRefreshTime(DateTimeUtils.getTimeStr(DateTimeUtils.getNowTime(), "yyyy-MM-dd hh:mm:ss"));
+                    getMyQuestionServerData(JnHouse_Record.My_Ask, 1);
+                }
+            }, 2000);
+        }
+
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (flag.equals("theirs") || flag.equals("more")) {//指定分类的问题
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    page++;
+                    getQuestionServerData(JnHouse_Record.Wd_List, -1);
+                }
+            }, 2000);
+        } else if (flag.equals("mine")) {//我的问题
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    listView.stopRefresh();
+                    page++;
+                    listView.setRefreshTime(DateTimeUtils.getTimeStr(DateTimeUtils.getNowTime(), "yyyy-MM-dd hh:mm:ss"));
+                    getMyQuestionServerData(JnHouse_Record.My_Ask, -1);
+                }
+            }, 2000);
+        }
+
+    }
+}

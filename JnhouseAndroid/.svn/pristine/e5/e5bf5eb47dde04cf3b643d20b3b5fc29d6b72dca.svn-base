@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<include layout="@layout/tp_index_second_house_title"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/radiobtn0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房源不存在或已售"
+           />
+       
+        <RadioButton
+            android:id="@+id/radiobtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="价格不真实"/>
+        <RadioButton
+            android:id="@+id/radiobtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片不真实"/>
+        <RadioButton
+            android:id="@+id/radiobtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他"/>
+    </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@color/background_white">
+        <EditText
+            android:id="@+id/report_conent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="其他描述（200字以内）"
+            android:background="@color/background_white"
+            android:inputType="textMultiLine"
+            android:maxLength="200"
+            />
+            </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/report_btn"
+            android:text="举报"
+            android:textSize="17sp"
+            android:textColor="@color/background_white"
+             android:background="@color/app_main_color"/>
+</LinearLayout>
+</LinearLayout>

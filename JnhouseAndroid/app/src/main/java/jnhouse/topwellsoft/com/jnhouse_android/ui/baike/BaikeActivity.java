@@ -1,0 +1,304 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.baike;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.StyleUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.BaikeListAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.BaikeinitEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.ConsultList;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+
+/**
+ * Created by Administrator on 2016/7/5.
+ */
+public class BaikeActivity extends Activity implements View.OnClickListener {
+
+    private RelativeLayout layout[] = new RelativeLayout[9];
+    private int[] layout_id = {R.id.ready_to_buy, R.id.look_and_chose, R.id.order_house, R.id.get_loan, R.id.pay_taxes_exchange, R.id.wuyejiaoge,
+            R.id.cash_watch, R.id.things_know, R.id.layout_other};
+    private ImageView img[] = new ImageView[9];
+    private int[] img_id = {R.id.img_ready_to_buy, R.id.img_look_and_chose, R.id.img_order_house, R.id.img_get_loan, R.id.img_pay_taxes_exchange, R.id.img_wuyejiaoge,
+            R.id.img_cash_watch, R.id.img_things_know, R.id.img_layout_other};
+    private int[] drawable = {R.mipmap.ic_buy_house, R.mipmap.ic_the_room, R.mipmap.ic_contract_booking, R.mipmap.ic_fund_supervision, R.mipmap.ic_loan,
+            R.mipmap.ic_pay_taxes, R.mipmap.ic_lunch, R.mipmap.ic_buy_know, R.mipmap.ic_other};
+    private int[] drawable_pressed = {R.mipmap.ic_buy_house_pressed, R.mipmap.ic_the_room_pressed, R.mipmap.ic_contract_booking_pressed, R.mipmap.ic_fund_supervision_pressed,
+            R.mipmap.ic_loan_pressed, R.mipmap.ic_pay_taxes_pressed, R.mipmap.ic_lunch_pressed, R.mipmap.ic_buy_know_pressed, R.mipmap.ic_other_pressed};
+    private BaikeinitEntity baike;
+    private LinearLayout right_layout;
+    private ListView[] listViews;
+    private TextView[] textViews;
+    private BaikeListAdapter[] adapters;
+    private TextView[] tv_more;
+    private String[] code = {"0101", "0102", "0103", "0104", "0105", "0106", "0107", "0108", "0109"};
+    private ImageView img_back;
+    private TextView tv_title;
+    private MyDiaLog diaLog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StyleUtils.initStatusBar(getWindow());
+        setContentView(R.layout.activity_baike);
+        init();
+        initDiaLog();
+        getBaikeServerData(JnHouse_Record.Baike_init, code[0]);
+    }
+
+    public void initDiaLog() {
+        diaLog = new MyDiaLog(BaikeActivity.this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+        diaLog.show();
+    }
+
+    public void init() {
+        for (int i = 0; i < 9; i++) {
+            layout[i] = (RelativeLayout) this.findViewById(layout_id[i]);
+            layout[i].setOnClickListener(this);
+        }
+        for (int i = 0; i < 9; i++) {
+            img[i] = (ImageView) this.findViewById(img_id[i]);
+        }
+        right_layout = (LinearLayout) this.findViewById(R.id.right_layout);
+        //right_layout.setBackgroundColor(Color.parseColor("ffffff"));
+        img_back = (ImageView) this.findViewById(R.id.consult_img_back);
+        tv_title = (TextView) this.findViewById(R.id.tv_consult_title);
+        tv_title.setText("百科");
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    public void addViewToLayout() {
+        right_layout.removeAllViews();
+        if (baike.getData_list() == null) {
+            TextView tv = new TextView(BaikeActivity.this);
+            tv.setText("暂无数据");
+            right_layout.addView(tv);
+            return;
+        }
+        int count = baike.getData_list().size();
+        listViews = new ListView[count];
+        textViews = new TextView[count];
+        adapters = new BaikeListAdapter[count];
+        tv_more = new TextView[count];
+        for (int i = 0; i < count; i++) {
+            textViews[i] = new TextView(BaikeActivity.this);
+            textViews[i].setGravity(Gravity.CENTER);
+            textViews[i].setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            LinearLayout.LayoutParams mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            mLayoutParams.setMargins(30, 30, 0, 30);
+            textViews[i].setTextColor(Color.parseColor("#000000"));
+            textViews[i].setText(baike.getData_list().get(i).getC_name());
+            textViews[i].setLayoutParams(mLayoutParams);
+            right_layout.addView(textViews[i]);
+            right_layout.addView(getLine());
+
+            listViews[i] = new ListView(BaikeActivity.this);
+            listViews[i].setSelector(R.drawable.white_btn_state);
+            adapters[i] = new BaikeListAdapter(BaikeActivity.this, baike.getData_list().get(i).getaList());
+            listViews[i].setAdapter(adapters[i]);
+            right_layout.addView(listViews[i]);
+            final int p = i;
+            listViews[i].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(BaikeActivity.this, BaikeDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", baike.getData_list().get(p).getaList().get(position).getNewsId());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+            setListViewHightBaseedOnChildren(listViews[i]);
+            right_layout.addView(getLine());
+            tv_more[i] = new TextView(BaikeActivity.this);
+            LinearLayout.LayoutParams mLayoutParams2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            mLayoutParams2.setMargins(30, 30, 0, 30);
+            tv_more[i].setGravity(Gravity.CENTER);
+            tv_more[i].setLayoutParams(mLayoutParams2);
+            tv_more[i].setTextSize(18);
+            tv_more[i].setText("查看更多");
+            tv_more[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            right_layout.addView(tv_more[i]);
+            final int position = i;
+            tv_more[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(BaikeActivity.this, BaikeSecondActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("code", baike.getData_list().get(position).getC_code());
+                    bundle.putString("name", baike.getData_list().get(position).getC_name());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+            right_layout.addView(getLine());
+        }
+    }
+
+    public TextView getLine() {
+        TextView tv = new TextView(BaikeActivity.this);
+        LinearLayout.LayoutParams mLayoutParams3 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        tv.setBackgroundColor(Color.parseColor("#CDCDB4"));
+        tv.setLayoutParams(mLayoutParams3);
+        return tv;
+    }
+
+    public void setListViewHightBaseedOnChildren(ListView listview) {
+        ListAdapter adapter = listview.getAdapter();
+        if (adapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View item = adapter.getView(i, null, listview);
+            item.measure(0, 0);
+            totalHeight += item.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listview.getLayoutParams();
+        params.height = totalHeight + (listview.getDividerHeight() * (adapter.getCount() - 1));
+        listview.setLayoutParams(params);
+    }
+
+    public void getBaikeServerData(String url, String code) {
+
+        AjaxParams params = new AjaxParams();
+        params.put("code", code);
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing())
+                    diaLog.dismiss();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    baike = gson.fromJson(t.toString(), new TypeToken<BaikeinitEntity>() {
+                    }.getType());
+                    addViewToLayout();
+                    if (diaLog.isShowing())
+                        diaLog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ready_to_buy:
+                right_layout.removeAllViews();
+                setBackground(0);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[0]);
+                break;
+            case R.id.look_and_chose:
+                right_layout.removeAllViews();
+                setBackground(1);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[1]);
+                break;
+            case R.id.order_house:
+                right_layout.removeAllViews();
+                setBackground(2);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[2]);
+                break;
+            case R.id.get_loan:
+                right_layout.removeAllViews();
+                setBackground(3);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[3]);
+                break;
+            case R.id.pay_taxes_exchange:
+                right_layout.removeAllViews();
+                setBackground(4);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[4]);
+                break;
+            case R.id.wuyejiaoge:
+                right_layout.removeAllViews();
+                setBackground(5);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[5]);
+                break;
+            case R.id.cash_watch:
+                right_layout.removeAllViews();
+                setBackground(6);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[6]);
+                break;
+            case R.id.things_know:
+                right_layout.removeAllViews();
+                setBackground(7);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[7]);
+                break;
+            case R.id.layout_other:
+                right_layout.removeAllViews();
+                setBackground(8);
+                getBaikeServerData(JnHouse_Record.Baike_init, code[8]);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public void setBackground(int position) {
+
+        for (int i = 0; i < img.length; i++) {
+            img[i].setImageResource(drawable[i]);
+        }
+        img[position].setImageResource(drawable_pressed[position]);
+        diaLog.show();
+    }
+}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/app_font_color_grey"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+
+        android:id="@+id/radio_maintab_a"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/tab_bg_selector"
+        android:paddingTop="4.0dip"
+        android:tag="tab_0">
+
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tab_a_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="@string/maintab_a_text"
+            android:textColor="@color/mian_tab_text_color"
+            android:textSize="10.0sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/radio_maintab_b"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/tab_bg_selector"
+        android:paddingTop="4.0dip"
+        android:tag="tab_1">
+
+        <ImageView
+            android:id="@+id/radio_maintab_1_img1"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tab_b_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="@string/maintab_c_text"
+            android:textColor="@color/mian_tab_text_color"
+            android:textSize="10.0sp" />
+
+        <ImageView
+            android:id="@+id/radio_maintab_1_img"
+            android:layout_width="20.0dip"
+            android:layout_height="15.0dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3.0dip"
+            android:layout_toRightOf="@id/radio_maintab_1_img1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/radio_maintab_c"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/tab_bg_selector"
+        android:paddingTop="4.0dip"
+        android:tag="tab_2">
+
+        <TextView
+            android:id="@+id/unread_msg_number"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_toRightOf="@+id/sssssss"
+            android:background="@drawable/message_background"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/sssssss"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tab_c_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="@string/maintab_b_text"
+            android:textColor="@color/mian_tab_text_color"
+            android:textSize="10.0sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/radio_maintab_n"
+        android:layout_width="0.0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:background="@drawable/tab_bg_selector"
+        android:paddingTop="4.0dip"
+        android:tag="tab_3">
+
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tab_n_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="@string/maintab_n_text"
+            android:textColor="@color/mian_tab_text_color"
+            android:textSize="10.0sp" />
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>

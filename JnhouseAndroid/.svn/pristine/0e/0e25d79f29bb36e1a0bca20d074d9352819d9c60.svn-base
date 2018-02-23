@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/radio_button_unselected_color">
+
+    <TextView
+        android:id="@+id/new_house_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/app_font_color_highlight"
+        android:textSize="17sp"
+        android:drawableLeft="@drawable/left_gray"
+        android:paddingRight="10dp"/>
+
+    <EditText
+        android:id="@+id/new_house_title_search"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/title_search"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="64dp"
+        android:textColor="@color/app_font_color_highlight"
+        android:textColorHint="@color/app_font_color_black"
+        android:cursorVisible="false"
+        android:paddingLeft="3dp"
+        android:visibility="gone"
+        android:hint="输入小区名"/>
+
+    <TextView
+        android:id="@+id/new_house_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bb"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="17sp"
+        android:textColor="@color/app_font_color_highlight"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

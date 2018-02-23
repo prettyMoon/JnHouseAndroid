@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView
+        android:id="@+id/index_second_house_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:layout_marginTop="89dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/tp_index_second_house_title"/>
+
+        <jnhouse.topwellsoft.com.jnhouse_android.view.FilterView
+            android:id="@+id/index_second_house_top_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/progressbar_show"/>
+
+</FrameLayout>

@@ -1,0 +1,382 @@
+package jnhouse.topwellsoft.com.jnhouse_android.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * Created by admin on 2016/6/7.
+ */
+public class SecondHouseDetailEntity implements Serializable {
+
+    private List<SecondHousePicEntity> pic_list;//图片list
+    private  String tr_List;//走势图数据list
+    private  String bs_List;
+    private  String borough_name_encode;
+    private String borough_name_jn_encode;
+    private String borough_id;//小区ID
+    private String borough_name;//小区名称
+    private String house_title;//房源标题
+    private String house_feature;//房源特色（注：带,的字符串，需自己分割）
+    private String house_price;//总价
+    private String house_sf;//首付
+    private String house_yg;//月供
+    private String house_sj;//税金
+    private String house_jj;//单价
+    private String house_room;//户型
+    private String house_totalarea;//建筑面积
+    private String house_floor;//楼层
+    private String house_type;//类型
+    private String house_toward;//朝向
+    private String house_fitment;//装修
+    private String house_age;//建筑年代
+    private String created;//发布时间
+    private String updated;//更新时间
+    private String house_desc;//房源描述
+    private String area_name;//城区
+    private String trade_name;//商圈
+    private String layout_map;//经纬度
+    private String is_fav;//是否关注此房源（0未关注1已关注）
+    private  String broker_id;//置业顾问id
+    private  String realname;//置业顾问名字
+    private  String broker_mobile;//置业顾问电话
+    private  String avatar;
+    private  String dkcs;//带看次数
+    private  String bxqsl;//其他房源
+    private  String elementary_school;//小学
+    private  String middle_school;//初高中
+    private  String borough_shop;//商场
+    private  String borough_hospital;//医院
+    private  String borough_bank;//银行
+    private  String borough_bus;//交通路线
+
+    private List<SecondHouselyEntity> lylist;//房源留言列表
+
+    public List<SecondHousePicEntity> getPic_list() {
+        return pic_list;
+    }
+
+    public void setPic_list(List<SecondHousePicEntity> pic_list) {
+        this.pic_list = pic_list;
+    }
+
+    public String getBorough_id() {
+        return borough_id;
+    }
+
+    public void setBorough_id(String borough_id) {
+        this.borough_id = borough_id;
+    }
+
+    public String getBorough_name() {
+        return borough_name;
+    }
+
+    public void setBorough_name(String borough_name) {
+        this.borough_name = borough_name;
+    }
+
+    public String getHouse_title() {
+        return house_title;
+    }
+
+    public void setHouse_title(String house_title) {
+        this.house_title = house_title;
+    }
+
+    public String getHouse_feature() {
+        return house_feature;
+    }
+
+    public void setHouse_feature(String house_feature) {
+        this.house_feature = house_feature;
+    }
+
+    public String getHouse_price() {
+        return house_price;
+    }
+
+    public void setHouse_price(String house_price) {
+        this.house_price = house_price;
+    }
+
+    public String getHouse_sf() {
+        return house_sf;
+    }
+
+    public void setHouse_sf(String house_sf) {
+        this.house_sf = house_sf;
+    }
+
+    public String getHouse_yg() {
+        return house_yg;
+    }
+
+    public void setHouse_yg(String house_yg) {
+        this.house_yg = house_yg;
+    }
+
+    public String getHouse_sj() {
+        return house_sj;
+    }
+
+    public void setHouse_sj(String house_sj) {
+        this.house_sj = house_sj;
+    }
+
+    public String getHouse_jj() {
+        return house_jj;
+    }
+
+    public void setHouse_jj(String house_jj) {
+        this.house_jj = house_jj;
+    }
+
+    public String getHouse_room() {
+        return house_room;
+    }
+
+    public void setHouse_room(String house_room) {
+        this.house_room = house_room;
+    }
+
+    public String getHouse_totalarea() {
+        return house_totalarea;
+    }
+
+    public void setHouse_totalarea(String house_totalarea) {
+        this.house_totalarea = house_totalarea;
+    }
+
+    public String getHouse_floor() {
+        return house_floor;
+    }
+
+    public void setHouse_floor(String house_floor) {
+        this.house_floor = house_floor;
+    }
+
+    public String getHouse_type() {
+        return house_type;
+    }
+
+    public void setHouse_type(String house_type) {
+        this.house_type = house_type;
+    }
+
+    public String getHouse_toward() {
+        return house_toward;
+    }
+
+    public void setHouse_toward(String house_toward) {
+        this.house_toward = house_toward;
+    }
+
+    public String getHouse_fitment() {
+        return house_fitment;
+    }
+
+    public void setHouse_fitment(String house_fitment) {
+        this.house_fitment = house_fitment;
+    }
+
+    public String getHouse_age() {
+        return house_age;
+    }
+
+    public void setHouse_age(String house_age) {
+        this.house_age = house_age;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getHouse_desc() {
+        return house_desc;
+    }
+
+    public void setHouse_desc(String house_desc) {
+        this.house_desc = house_desc;
+    }
+
+    public String getArea_name() {
+        return area_name;
+    }
+
+    public void setArea_name(String area_name) {
+        this.area_name = area_name;
+    }
+
+    public String getTrade_name() {
+        return trade_name;
+    }
+
+    public void setTrade_name(String trade_name) {
+        this.trade_name = trade_name;
+    }
+
+    public String getLayout_map() {
+        return layout_map;
+    }
+
+    public void setLayout_map(String layout_map) {
+        this.layout_map = layout_map;
+    }
+
+    public String getIs_fav() {
+        return is_fav;
+    }
+
+    public void setIs_fav(String is_fav) {
+        this.is_fav = is_fav;
+    }
+
+    public List<SecondHouselyEntity> getLylist() {
+        return lylist;
+    }
+
+    public void setLylist(List<SecondHouselyEntity> lylist) {
+        this.lylist = lylist;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getBroker_mobile() {
+        return broker_mobile;
+    }
+
+    public void setBroker_mobile(String broker_mobile) {
+        this.broker_mobile = broker_mobile;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getDkcs() {
+        return dkcs;
+    }
+
+    public void setDkcs(String dkcs) {
+        this.dkcs = dkcs;
+    }
+
+    public String getBxqsl() {
+        return bxqsl;
+    }
+
+    public void setBxqsl(String bxqsl) {
+        this.bxqsl = bxqsl;
+    }
+
+
+    public String getBroker_id() {
+        return broker_id;
+    }
+
+    public void setBroker_id(String broker_id) {
+        this.broker_id = broker_id;
+    }
+
+    public String getElementary_school() {
+        return elementary_school;
+    }
+
+    public void setElementary_school(String elementary_school) {
+        this.elementary_school = elementary_school;
+    }
+
+    public String getMiddle_school() {
+        return middle_school;
+    }
+
+    public void setMiddle_school(String middle_school) {
+        this.middle_school = middle_school;
+    }
+
+    public String getBorough_shop() {
+        return borough_shop;
+    }
+
+    public void setBorough_shop(String borough_shop) {
+        this.borough_shop = borough_shop;
+    }
+
+    public String getBorough_hospital() {
+        return borough_hospital;
+    }
+
+    public void setBorough_hospital(String borough_hospital) {
+        this.borough_hospital = borough_hospital;
+    }
+
+    public String getBorough_bank() {
+        return borough_bank;
+    }
+
+    public void setBorough_bank(String borough_bank) {
+        this.borough_bank = borough_bank;
+    }
+
+    public String getBorough_bus() {
+        return borough_bus;
+    }
+
+    public void setBorough_bus(String borough_bus) {
+        this.borough_bus = borough_bus;
+    }
+
+    public String getTr_List() {
+        return tr_List;
+    }
+
+    public void setTr_List(String tr_List) {
+        this.tr_List = tr_List;
+    }
+
+    public String getBs_List() {
+        return bs_List;
+    }
+
+    public void setBs_List(String bs_List) {
+        this.bs_List = bs_List;
+    }
+
+    public String getBorough_name_encode() {
+        return borough_name_encode;
+    }
+
+    public void setBorough_name_encode(String borough_name_encode) {
+        this.borough_name_encode = borough_name_encode;
+    }
+
+    public String getBorough_name_jn_encode() {
+        return borough_name_jn_encode;
+    }
+
+    public void setBorough_name_jn_encode(String borough_name_jn_encode) {
+        this.borough_name_jn_encode = borough_name_jn_encode;
+    }
+}

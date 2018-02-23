@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/app_main_color">
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/new_house_title_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/app_font_color_highlight"
+        android:textSize="17sp"
+        android:background="@drawable/icon_titlebar_back"
+        android:layout_gravity="center_vertical" />
+
+
+    <EditText
+
+        android:id="@+id/new_house_title_search"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_background"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="64dp"
+        android:textColor="@color/app_font_color_black"
+        android:textColorHint="@color/app_font_color_grey"
+        android:cursorVisible="false"
+        android:paddingLeft="3dp"
+        android:visibility="gone"
+        android:hint="输入小区名"
+        android:imeOptions="actionSearch"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/new_house_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bb"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@color/app_font_color_highlight"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--二手房出售-->
+    <string-array name="room">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="office">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="kitchen">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="toilet">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="decoration">
+        <item>豪华装修</item>
+        <item>精装修</item>
+        <item>中等装修</item>
+        <item>简装修</item>
+        <item>毛坯</item>
+    </string-array>
+
+    <string-array name="orientation">
+        <item>南北</item>
+        <item>东北</item>
+        <item>南</item>
+        <item>东南</item>
+        <item>东</item>
+        <item>西南</item>
+        <item>北</item>
+        <item>西</item>
+        <item>西北</item>
+        <item>东西</item>
+    </string-array>
+
+    <string-array name="type">
+        <item>普通写字楼</item>
+        <item>商务公寓</item>
+        <item>商务酒店</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="store_type">
+        <item>商业街商铺</item>
+        <item>社区住宅底商</item>
+        <item>写字楼配套</item>
+        <item>宾馆酒店</item>
+        <item>旅游点商铺</item>
+        <item>主题卖场</item>
+        <item>百货/购物中心</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="share_type">
+        <item>普通写字楼</item>
+        <item>商务公寓</item>
+        <item>商务酒店</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="lease_share_type">
+        <item>主卧</item>
+        <item>次卧</item>
+        <item>隔断间</item>
+        <item>合租床位</item>
+    </string-array>
+
+    <string-array name="lease_short_type">
+        <item>家庭旅馆</item>
+        <item>高档公寓</item>
+        <item>商务酒店</item>
+        <item>宾馆</item>
+        <item>招待所</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="lease_balcony">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="buy_type">
+        <item>二手房</item>
+        <item>写字楼</item>
+        <item>商铺</item>
+    </string-array>
+    <string-array name="buy_want_price">
+        <item>30万以下</item>
+        <item>30-60万</item>
+        <item>60-100万</item>
+        <item>100-150万</item>
+        <item>150-200万</item>
+        <item>200万以上</item>
+    </string-array>
+    <string-array name="rent_want_type">
+        <item>整租</item>
+        <item>合租</item>
+        <item>日短租</item>
+    </string-array>
+
+    <string-array name="rent_money">
+        <item>500以下</item>
+        <item>500-1000元</item>
+        <item>1000-1500元</item>
+        <item>1500-3000元</item>
+        <item>3000元以上</item>
+    </string-array>
+
+    <string-array name="spingarr">
+        <item>二手房</item>
+        <item>新房</item>
+        <item>租房</item>
+
+    </string-array>
+
+</resources>

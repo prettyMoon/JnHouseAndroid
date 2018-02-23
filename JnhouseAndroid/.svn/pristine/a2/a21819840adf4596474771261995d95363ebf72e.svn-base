@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- inner shadow of outer circle -->
+    <item
+        android:bottom="1px"
+        android:right="1px">
+        <shape android:shape="oval">
+            <solid android:color="#FFECEAEA" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="2px"
+        android:right="2px">
+        <shape android:shape="oval">
+            <solid android:color="#FFDCDADA" />
+        </shape>
+    </item>
+    <item
+        android:bottom="3px"
+        android:right="3px">
+        <shape android:shape="oval">
+            <solid android:color="#FFCFCECE" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="4px"
+        android:right="4px">
+        <shape android:shape="oval">
+            <solid android:color="#FFBAB9B9" />
+        </shape>
+    </item>
+    <item
+        android:bottom="5px"
+        android:right="5px">
+        <shape android:shape="oval">
+            <solid android:color="#FFAEADAD" />
+        </shape>
+    </item>
+    <item
+        android:bottom="6px"
+        android:right="6px">
+        <shape android:shape="oval">
+            <solid android:color="#FF9C9B9B" />
+        </shape>
+    </item>
+
+
+    <item
+        android:bottom="7px"
+        android:right="7px">
+        <shape android:shape="oval">
+            <solid android:color="@color/tp_index_second_house_title" />
+        </shape>
+    </item>
+</layer-list>

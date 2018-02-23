@@ -1,0 +1,265 @@
+package jnhouse.topwellsoft.com.jnhouse_android.util;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.model.ChannelEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.FilterEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.FilterTwoEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.HomeZXEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.OperationEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.SecondHouseEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.TravelingEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.TravelingEntityComparator;
+
+/**
+ * Created by Administrator on 16-5-22.
+ */
+public class ModelUtil {
+
+    public static final String type_scenery = "区域";
+    public static final String type_building = "建筑";
+    public static final String type_animal = "动物";
+    public static final String type_plant = "植物";
+
+    // 广告数据
+    public static List<String> getAdData() {
+        List<String> adList = new ArrayList<>();
+        adList.add("http://e.hiphotos.baidu.com/image/pic/item/7af40ad162d9f2d3433e1c33acec8a136327cc3a.jpg");
+        adList.add("http://e.hiphotos.baidu.com/image/pic/item/7af40ad162d9f2d3433e1c33acec8a136327cc3a.jpg");
+        adList.add("http://e.hiphotos.baidu.com/image/pic/item/7af40ad162d9f2d3433e1c33acec8a136327cc3a.jpg");
+        return adList;
+    }
+
+    // 广告数据
+    public static List<String> getAdData1() {
+        List<String> adList = new ArrayList<>();
+        adList.add("http://img5.imgtn.bdimg.com/it/u=2769726205,1778838650&fm=21&gp=0.jpg");
+        adList.add("http://img5.imgtn.bdimg.com/it/u=2769726205,1778838650&fm=21&gp=0.jpg");
+        adList.add("http://img5.imgtn.bdimg.com/it/u=2769726205,1778838650&fm=21&gp=0.jpg");
+        return adList;
+    }
+
+    // 频道数据
+    public static List<ChannelEntity> getChannelData() {
+        List<ChannelEntity> channelList = new ArrayList<>();
+        channelList.add(new ChannelEntity("二手房", "", R.drawable.housesell2x));
+        channelList.add(new ChannelEntity("新房", "", R.drawable.newhouse2x));
+        channelList.add(new ChannelEntity("租房", "", R.drawable.renting2x));
+        channelList.add(new ChannelEntity("免费发布", "", R.drawable.release2x));
+        channelList.add(new ChannelEntity("地图找房", "",R.drawable.map_house2x));
+        channelList.add(new ChannelEntity("金融", "", R.drawable.finance2x));
+        channelList.add(new ChannelEntity("装修", "",R.drawable.decorated2x));
+        channelList.add(new ChannelEntity("购房指南", "", R.drawable.guide2x));
+
+        return channelList;
+    }
+
+    // 运营数据
+    public static List<OperationEntity> getOperationData() {
+        List<OperationEntity> operationList = new ArrayList<>();
+        operationList.add(new OperationEntity("问答", "", "http://img2.imgtn.bdimg.com/it/u=4081165325,36916497&fm=21&gp=0.jpg"));
+        operationList.add(new OperationEntity("百科", "", "http://img4.imgtn.bdimg.com/it/u=4141168524,78676102&fm=21&gp=0.jpg"));
+        operationList.add(new OperationEntity("经纪人", "", "http://img2.imgtn.bdimg.com/it/u=4081165325,36916497&fm=21&gp=0.jpg"));
+        operationList.add(new OperationEntity("计算器", "", "http://img4.imgtn.bdimg.com/it/u=4141168524,78676102&fm=21&gp=0.jpg"));
+        return operationList;
+    }
+
+    // 分类数据
+    public static List<FilterTwoEntity> getCategoryData() {
+        List<FilterTwoEntity> list = new ArrayList<>();
+        list.add(new FilterTwoEntity(type_scenery, getAreaData()));
+        return list;
+    }
+
+    // 排序数据
+    public static List<FilterEntity> getSortData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("不限", ""));
+        list.add(new FilterEntity("30万以下", "1"));
+        list.add(new FilterEntity("30-50万", "2"));
+        list.add(new FilterEntity("50-80万", "3"));
+        list.add(new FilterEntity("80-100万", "4"));
+        list.add(new FilterEntity("100-150万", "5"));
+        list.add(new FilterEntity("150-200万", "6"));
+        list.add(new FilterEntity("200万及以上", "7"));
+        return list;
+    }
+
+    // 筛选数据
+    public static List<FilterEntity> getFilterData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("不限", ""));
+        list.add(new FilterEntity("1室", "1"));
+        list.add(new FilterEntity("2室", "2"));
+        list.add(new FilterEntity("3室", "3"));
+        list.add(new FilterEntity("4室", "4"));
+        list.add(new FilterEntity("5室", "5"));
+        list.add(new FilterEntity("5室以上", "6"));
+        return list;
+    }
+
+    public static List<FilterEntity> getAreaData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("不限", ""));
+        list.add(new FilterEntity("历下", "29"));
+        list.add(new FilterEntity("槐荫", "30"));
+        list.add(new FilterEntity("市中", "31"));
+        list.add(new FilterEntity("历城", "32"));
+        list.add(new FilterEntity("章丘", "33"));
+        list.add(new FilterEntity("长清", "35"));
+        list.add(new FilterEntity("高新", "34"));
+        list.add(new FilterEntity("天桥", "36"));
+        list.add(new FilterEntity("济阳", "37"));
+        list.add(new FilterEntity("商河", "38"));
+        list.add(new FilterEntity("平阴", "39"));
+        return list;
+    }
+
+    //朝向
+    public static List<FilterEntity> getHouseTowardData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("朝东", "1"));
+        list.add(new FilterEntity("朝西", "2"));
+        list.add(new FilterEntity("朝南", "3"));
+        list.add(new FilterEntity("朝北", "4"));
+        list.add(new FilterEntity("东南", "5"));
+        list.add(new FilterEntity("西南", "6"));
+        list.add(new FilterEntity("东北", "7"));
+        list.add(new FilterEntity("西北", "8"));
+        list.add(new FilterEntity("南北", "9"));
+        list.add(new FilterEntity("东西", "10"));
+        return list;
+    }
+
+    //面积类型
+    public static List<FilterEntity> getAreaTypeData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("50㎡以下", "1"));
+        list.add(new FilterEntity("50-70㎡", "2"));
+        list.add(new FilterEntity("70-90㎡", "3"));
+        list.add(new FilterEntity("90-120㎡", "4"));
+        list.add(new FilterEntity("120-144㎡", "5"));
+        list.add(new FilterEntity("144-200㎡", "6"));
+        list.add(new FilterEntity("200-300㎡", "7"));
+        list.add(new FilterEntity("300㎡以上", "8"));
+        return list;
+    }
+
+    //房龄
+    public static List<FilterEntity> getAgeTypeData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("5年以内", "1"));
+        list.add(new FilterEntity("5-10年", "2"));
+        list.add(new FilterEntity("10-20年", "3"));
+        list.add(new FilterEntity("20年以上", "4"));
+        return list;
+    }
+
+    //类型
+    public static List<FilterEntity> getHouseTypeData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("住宅", "1"));
+        list.add(new FilterEntity("别墅", "2"));
+        list.add(new FilterEntity("写字楼", "3"));
+        list.add(new FilterEntity("商铺", "4"));
+        list.add(new FilterEntity("工业用房", "5"));
+        return list;
+    }
+
+    public static List<FilterEntity> getListSortData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("默认", "1"));
+        list.add(new FilterEntity("发布时间", "2"));
+        list.add(new FilterEntity("单价由低到高", "3"));
+        list.add(new FilterEntity("单价由高到低", "4"));
+        list.add(new FilterEntity("总价由低到高", "5"));
+        list.add(new FilterEntity("总价由高到低", "6"));
+        list.add(new FilterEntity("面积由小到大", "7"));
+        list.add(new FilterEntity("面积由大到小", "8"));
+        return list;
+    }
+
+    public  static  List<FilterEntity> getListRentData(){
+        List<FilterEntity> list=new ArrayList<>();
+        list.add(new FilterEntity("不限",""));
+        list.add(new FilterEntity("500元以下", "1"));
+        list.add(new FilterEntity("500-1000元", "2"));
+        list.add(new FilterEntity("1000-2000元", "3"));
+        list.add(new FilterEntity("2000-3000元", "4"));
+        list.add(new FilterEntity("3000-5000元", "5"));
+        list.add(new FilterEntity("5000-8000元", "6"));
+        list.add(new FilterEntity("8000元及以上", "7"));
+
+
+        return  list;
+    }
+  public  static  List<FilterEntity>getListNewData(){
+      List<FilterEntity>list=new ArrayList<>();
+      list.add(new FilterEntity("不限",""));
+      list.add(new FilterEntity("5000元以下","1"));
+      list.add(new FilterEntity("5000-7000元","2"));
+      list.add(new FilterEntity("7000-9000元","3"));
+      list.add(new FilterEntity("9000元以上","4"));
+      return list;
+  }
+
+    public static List<FilterEntity> getListNewSortData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("默认", "1"));
+        list.add(new FilterEntity("开盘时间降序", "2"));
+        list.add(new FilterEntity("开盘时间升序", "3"));
+
+        return list;
+    }
+
+    public static List<FilterEntity> getListNewPropertiesData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("预售",""));
+        list.add(new FilterEntity("在售", "1"));
+        list.add(new FilterEntity("售罄", "2"));
+        return list;
+    }
+
+    public static List<FilterEntity> getListNewlineData() {
+        List<FilterEntity> list = new ArrayList<>();
+        list.add(new FilterEntity("1环","1"));
+        list.add(new FilterEntity("2环", "2"));
+        list.add(new FilterEntity("3环", "3"));
+        list.add(new FilterEntity("3环外","4"));
+        return list;
+    }
+
+    // 暂无数据
+    public static List<TravelingEntity> getNoDataEntity(int height) {
+        List<TravelingEntity> list = new ArrayList<>();
+        TravelingEntity entity = new TravelingEntity();
+        entity.setNoData(true);
+        entity.setHeight(height);
+        list.add(entity);
+        return list;
+    }
+
+    // 暂无数据
+    public static List<HomeZXEntity> getZiXnNoDataEntity(int height) {
+        List<HomeZXEntity> list = new ArrayList<>();
+        HomeZXEntity entity = new HomeZXEntity();
+        entity.setNoData(true);
+        entity.setHeight(height);
+        list.add(entity);
+        return list;
+    }
+
+    // 暂无数据
+    public static List<SecondHouseEntity> getSecondHouseEntity(int height) {
+        List<SecondHouseEntity> list = new ArrayList<>();
+        SecondHouseEntity entity = new SecondHouseEntity();
+        entity.setNoData(true);
+        entity.setHeight(height);
+        list.add(entity);
+        return list;
+    }
+}

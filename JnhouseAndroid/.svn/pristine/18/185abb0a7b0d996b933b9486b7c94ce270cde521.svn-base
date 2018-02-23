@@ -1,0 +1,225 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.login;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.topwellsoft.androidutils.PreferencesUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+/**
+ * Created by Administrator on 2016/7/23.
+ */
+public class UsernameResetActivity extends Activity implements View.OnClickListener {
+    private Button btn_getcode, btn_reset;
+    private EditText edit_phone, edit_code;
+    private ImageView img_back;
+    private TextView tv_title;
+    private MyDiaLog diaLog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_confirmation);
+        initView();
+        initDiaLog();
+    }
+
+    public void initView() {
+        btn_getcode = (Button) this.findViewById(R.id.btn_getcode);
+        btn_reset = (Button) this.findViewById(R.id.btn_reset);
+        edit_code = (EditText) this.findViewById(R.id.edit_code);
+        edit_phone = (EditText) this.findViewById(R.id.edit_phone);
+        img_back = (ImageView) this.findViewById(R.id.question_img_back);
+        tv_title = (TextView) this.findViewById(R.id.tv_middle);
+        tv_title.setText("重置用户名");
+        btn_getcode.setOnClickListener(this);
+        btn_reset.setOnClickListener(this);
+        img_back.setOnClickListener(this);
+    }
+
+    public void initDiaLog() {
+        diaLog = new MyDiaLog(UsernameResetActivity.this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+    }
+
+
+    public void getCodeFromServer(String url) {
+        diaLog.show();
+        AjaxParams params = new AjaxParams();
+        params.put("phone", edit_phone.getText().toString());
+        params.put("logo", "0");
+        params.put("fs", "0");
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing())
+                    diaLog.dismiss();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    String str = t.toString();
+                    if (str.contains("102")) {
+                        showToast("手机号已存在 ");
+                    } else if (str.contains("103")) {
+                        showToast("手机号不存在 ");
+                    } else if (str.contains("104")) {
+                        showToast("发送失败");
+                    } else {
+                        showToast("发送成功");
+                    }
+                    if (diaLog.isShowing())
+                        diaLog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void resetUsername(String url) {
+        diaLog.show();
+        LoginEntity loginEntity = (LoginEntity) PreferencesUtils.getObject(UsernameResetActivity.this, "loginEntity");
+        AjaxParams params = new AjaxParams();
+        params.put("phone", edit_phone.getText().toString());
+        params.put("userUUID", loginEntity.getUserUUID());
+        params.put("user_id", loginEntity.getUser_id());
+        params.put("code", edit_code.getText().toString());
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing())
+                    diaLog.dismiss();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    String str = t.toString();
+                    if (str.contains("105")) {
+                        showToast("验证码错误或超时 ");
+                    } else if (str.contains("-1")) {
+                        showToast("发生异常情况");
+                    } else {
+                        showToast("重置成功,请重新登录");
+                        btn_getcode.setClickable(false);
+                        btn_reset.setClickable(false);
+                        img_back.setClickable(false);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                LoginEntity loginEntity1 = new LoginEntity();
+                                PreferencesUtils.putObject(UsernameResetActivity.this, "loginEntity", loginEntity1);
+                                Intent intent = new Intent(UsernameResetActivity.this, TpLoginFragmentActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }, 2000);
+                    }
+                    if (diaLog.isShowing())
+                        diaLog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public boolean isMobileNO(String mobiles) {
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$");
+        Matcher m = p.matcher(mobiles);
+        return m.matches();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_getcode:
+                if (checkPhone()) {
+                    getCodeFromServer(JnHouse_Record.Key_send_code);
+                }
+                break;
+            case R.id.btn_reset:
+                if (checkCode()) {
+                    resetUsername(JnHouse_Record.Un_Reset);
+                }
+                break;
+            case R.id.question_img_back:
+                finish();
+                break;
+        }
+    }
+
+    public boolean checkPhone() {
+        if (edit_phone.getText().toString().equals("")) {
+            showToast("请输入手机号码");
+            return false;
+        } else {
+            if (isMobileNO(edit_phone.getText().toString().trim())) {
+                showToast("手机号码格式不正确");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkCode() {
+        if (edit_code.getText().toString().equals("")) {
+            showToast("请输入验证码");
+            return false;
+        }
+        return true;
+    }
+
+    public void showToast(String str) {
+        ToastUtil.makeText(UsernameResetActivity.this, str, ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+    }
+}

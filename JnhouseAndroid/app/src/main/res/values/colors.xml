@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用主色（标题栏，按钮等） -->
+    <color name="app_main_color">#ff5555</color>
+    <color name="app_main_color_transparent">#aaff5555</color>
+    <color name="app_main_lightcolor">#ffcccc</color>
+    <color name="app_main_lightcolor_2">#FFFF9494</color>
+
+    <color name="app_color_grey">#d5d5d5</color>
+
+    <color name="app_font_color_highlight">#ffffff</color>
+
+    <color name="app_font_color_black">#000000</color>
+    <color name="app_font_color_grey">#a3a3a3</color>
+    <color name="app_font_color_lightgrey">#FFFAFAFA</color>
+    <color name="background_white">#ffffff</color>
+
+
+
+    <color name="half_transparent">#8f000000</color>
+
+    <color name="yellow">#f0f2ef2e</color>
+
+    <!-- background -->
+    <color name="bg">#FFF5F5F5</color>
+    <color name="bg_pressed">#f2f2f2</color>
+
+    <!-- divider -->
+    <color name="divider_1">#e2e2e2</color>
+    <color name="divider_2">#e6e6e6</color>
+    <color name="common_bottom_bar_normal_bg">#2d2f31</color>
+    <color name="common_bottom_bar_selected_bg">#161718</color>
+    <color name="common_botton_bar_blue">#2ea7e0</color>
+
+
+    <color name="bg_color_blue">#0e3563</color>
+    <color name="tab_selected">#00C5FF</color>
+    <color name="tab_normal">#EAEAEA</color>
+    <!-- 主页tab -->
+    <color name="bg_footer_selected">#ff7e00</color>
+    <color name="bg_footer">#EAEAEA</color>
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+
+
+
+    <color name="radio_button_unselected_color">#e0e0e0</color> >
+>
+
+    <color name="folad">#c0a6a2a2</color>
+    <color name="folad_pressed">#c08c8686</color>
+    <!-- 发布-->
+    <color name="tp_sell">#FFCC00</color>
+    <color name="tp_lease">#339900</color>
+    <color name="tp_buy">#ab3bab</color>
+    <color name="tp_rent">#FFCC66</color>
+    <color name="tp_check">#6633FF</color>
+    <color name="darkgray">#cccc</color>
+    <color name="gray_transparent">#e0e0e0</color>
+    <color name="color_white">#ffffff</color>>
+    <color name="red_pressed">#D64848</color>
+
+    <!--环信-->
+    <color name="common_top_bar_blue">#4ebcd3</color>
+    <color name="btn_login_normal">#00acff</color>
+    <color name="btn_login_pressed">#46678d</color>>
+    <color name="btn_logout_pressed">#DA5A4D</color>
+    <color name="btn_register_normal">#ffffff</color>
+    <color name="btn_register_pressed">#00acff</color>
+
+    <color name="common_bg">#fcfcfc</color>
+    <color name="btn_pressed_green_solid">#B6DA53</color>
+    <color name="divider_list">#d4d4d4</color>
+    <color name="top_bar_normal_bg">#00acff</color>
+
+    <color name="bottom_bar_normal_bg">#2D2F31</color>
+    <color name="bottom_text_color_normal">#ffffff</color>
+    <color name="btn_white_normal">#f7f8f8</color>
+    <color name="btn_white_pressed">#b5b5b6</color>
+    <color name="btn_green_noraml">#68C270</color>
+    <color name="btn_green_pressed">#6FCD78</color>
+    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="btn_gray_pressed_status">#b5b5b6</color>
+    <color name="btn_gray_pressed">#666667</color>
+    <color name="btn_blue_normal">#1e90ff</color>
+    <color name="btn_blue_pressed">#0066FF</color>
+    <color name="hx_orange">#FFA500</color>
+    <color name="gray_pressed">#b5b5b6</color>
+    <color name="gray_normal">#666667</color>
+    <color name="grid_state_pressed">#1Affffff</color>
+    <color name="grid_state_focused">#80000000</color>
+    <color name="voip_interface_text_color">#bababa</color>
+    <color name="black_deep">#FF000000</color>
+    <color name="btn_answer_pressed">#4ebcd3</color>
+    <color name="btn_answer_normal">#2dafa3</color>
+    <color name="list_itease_secondary_color">#888888</color>
+    <color name="list_itease_primary_color">#000</color>
+
+    <color name="emojicon_tab_selected">#D9D9D9</color>
+    <color name="emojicon_tab_nomal">#ffffff</color>
+
+    <color name="style_red">#ff4c41</color>
+    <color name="style_divider_color">#C9C7CD</color>
+    <color name="blue">#0000ff</color>
+    <!--蓝色 -->
+    <color name="albumback">#E1E0DE</color>
+    <color name="none_color">#00000000</color>
+    <color name="plugin_camera_black">#000000</color>
+
+
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="defult">#F5F5F5</color>
+    <color name="red">#A10000</color>
+    <color name="page1">#76EEC6</color>
+    <color name="page2">#EE82EE</color>
+    <color name="page3">#9AFF9A</color>
+    <color name="bg_blue">#065C99</color>
+</resources>

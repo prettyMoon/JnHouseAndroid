@@ -1,0 +1,386 @@
+package com.topwellsoft.jnhouse_android.realtime_order;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Calendar;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+
+/**
+ * Created by DELL on 2016/3/28.
+ */
+public class ChoseTimeDialog extends Dialog implements View.OnClickListener {
+
+    private TextView[] slide_btn = new TextView[7];
+    private int[] btn_slide_id = {R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5, R.id.btn_6, R.id.btn_7};
+    private int[] btn_time_id = {R.id.all_day, R.id.evening, R.id.afternoon, R.id.night};
+    private TextView[] btn_time = new TextView[4];
+    public static String result_date[] = new String[7];
+    public String result[] = new String[7];
+    public int pos = 10;
+    private int week_dir[] = new int[7];
+    private TextView btn_anytime;
+    private TextView tv_sure;
+    public static String time = "（全天）";
+    private EditText editText;
+    private boolean editCanShow = false;
+    public ButtonListener listener;
+
+    public ButtonListener getListener() {
+        return listener;
+    }
+
+    public void setListener(ButtonListener listener) {
+        this.listener = listener;
+    }
+
+    public ChoseTimeDialog(Context context) {
+        super(context);
+        this.editCanShow = false;
+    }
+
+    public ChoseTimeDialog(Context context, boolean editCanShow) {
+        super(context);
+        this.editCanShow = editCanShow;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_for_dialog);
+        initView();
+        setSlide_btnText();
+        Calendar cc = Calendar.getInstance();
+        int week = cc.get(Calendar.DAY_OF_WEEK);
+        for (int i = 0; i < 7; i++) {
+            week_dir[i] = (week + i - 1) % 7;
+        }
+        setTextState(0);
+    }
+
+    private void initView() {
+        editText = (EditText) this.findViewById(R.id.edit_aaaaa);
+        if (!editCanShow) {
+            editText.setVisibility(View.GONE);
+        }
+        tv_sure = (TextView) this.findViewById(R.id.tv_sure);
+        tv_sure.setOnClickListener(this);
+        btn_anytime = (TextView) this.findViewById(R.id.btn_0);
+        btn_anytime.setOnClickListener(this);
+        for (int i = 0; i < 7; i++) {
+            slide_btn[i] = (TextView) this.findViewById(btn_slide_id[i]);
+            slide_btn[i].setOnClickListener(this);
+        }
+        for (int i = 0; i < 4; i++) {
+            btn_time[i] = (TextView) this.findViewById(btn_time_id[i]);
+            btn_time[i].setOnClickListener(this);
+        }
+    }
+
+
+    public void setSlideBtnStyle(int position) {
+        slide_btn[position].setBackgroundResource(R.drawable.shape_post_service_dialog_btn_selected);
+        slide_btn[position].setTextColor(Color.parseColor("#ff0000"));
+        for (int i = 0; i < 7; i++) {
+            if (i == position) {
+                continue;
+            }
+            slide_btn[i].setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+            slide_btn[i].setTextColor(Color.parseColor("#9e9e9e"));
+        }
+    }
+
+    public String getEditContent() {
+        return editText.getText().toString();
+    }
+
+    /**
+     * 设置滑动按钮的内容
+     */
+    public void setSlide_btnText() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        for (int i = 0; i < 7; i++) {
+            String str = getDate(year, month, day) + "\n" + getWeekday(week + i);
+//            String str = getDate(year, month, day);
+            result_date[i] = year + "-" + getDate(year, month, day) + " " + getWeekday(week + i);
+//            result_date[i] = year + "-" + getDate(year, month, day) + getWeekday(week + i);
+            slide_btn[i].setText(str);
+
+            day++;
+        }
+
+    }
+
+    public String getDate(int year, int month, int day) {
+        String m = "", d = "";
+        switch (month) {
+            case 1:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+
+                break;
+            case 2:
+                if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                    if (day > 29) {
+                        d = day % 29 + "";
+                        m = (++month) + "";
+                    } else {
+                        d = day + "";
+                        m = month + "";
+                    }
+                } else {
+                    if (day > 28) {
+                        d = day % 28 + "";
+                        m = (++month) + "";
+                    } else {
+                        d = day + "";
+                        m = month + "";
+                    }
+                }
+                break;
+            case 3:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 4:
+                if (day > 30) {
+                    d = day % 30 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 5:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 6:
+                if (day > 30) {
+                    d = day % 30 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 7:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 8:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 9:
+                if (day > 30) {
+                    d = day % 30 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 10:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 11:
+                if (day > 30) {
+                    d = day % 30 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+            case 12:
+                if (day > 31) {
+                    d = day % 31 + "";
+                    m = (++month) + "";
+                } else {
+                    d = day + "";
+                    m = month + "";
+                }
+                break;
+
+            default:
+                break;
+
+        }
+        return m + "-" + d;
+    }
+
+    public String getWeekday(int i) {
+        String str = "";
+        switch (i % 7) {
+            case 1:
+                str = "星期日";
+                break;
+            case 2:
+                str = "星期一";
+                break;
+            case 3:
+                str = "星期二";
+                break;
+            case 4:
+                str = "星期三";
+                break;
+            case 5:
+                str = "星期四";
+                break;
+            case 6:
+                str = "星期五";
+                break;
+            case 0:
+                str = "星期六";
+                break;
+            default:
+                break;
+        }
+        return str;
+    }
+
+    @Override
+    public void onClick(View v) {
+        boolean[] flag;
+        switch (v.getId()) {
+            //选择日期
+            case R.id.btn_0:
+                for (int i = 0; i < 7; i++) {
+                    slide_btn[i].setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                    slide_btn[i].setTextColor(Color.parseColor("#9e9e9e"));
+                }
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_selected);
+                btn_anytime.setTextColor(Color.parseColor("#ff0000"));
+                pos = 10;
+                break;
+            case R.id.btn_1:
+                setSlideBtnStyle(0);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 0;
+                break;
+            case R.id.btn_2:
+                setSlideBtnStyle(1);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 1;
+                break;
+            case R.id.btn_3:
+                setSlideBtnStyle(2);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 2;
+                break;
+            case R.id.btn_4:
+                setSlideBtnStyle(3);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 3;
+                break;
+            case R.id.btn_5:
+                setSlideBtnStyle(4);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 4;
+                break;
+            case R.id.btn_6:
+                setSlideBtnStyle(5);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 5;
+                break;
+            case R.id.btn_7:
+                setSlideBtnStyle(6);
+                btn_anytime.setBackgroundResource(R.drawable.shape_post_service_dialog_btn_unselected);
+                btn_anytime.setTextColor(Color.parseColor("#9e9e9e"));
+                pos = 6;
+                break;
+            case R.id.tv_sure:
+//
+                if (listener != null) {
+                    listener.SureListener();
+                }
+                break;
+            case R.id.all_day:
+                setTextState(0);
+                time = " （全天）";
+                break;
+            case R.id.evening:
+                setTextState(1);
+                time = " （上午）";
+                break;
+            case R.id.afternoon:
+                setTextState(2);
+                time = " （下午）";
+                break;
+            case R.id.night:
+                setTextState(3);
+                time = " （晚上）";
+                break;
+            default:
+                break;
+        }
+    }
+
+    public String getTime() {
+        if (pos == 10) {
+            return "随时看房" + time;
+        }
+        return result_date[pos] + time;
+    }
+
+    public void setTextState(int position) {
+        for (int i = 0; i < 4; i++) {
+            btn_time[i].setBackgroundResource(R.drawable.layout_agent_background);
+            btn_time[i].setTextColor(Color.parseColor("#9e9e9e"));
+        }
+        btn_time[position].setBackgroundResource(R.drawable.background_white);
+        btn_time[position].setTextColor(Color.parseColor("#ff0000"));
+    }
+
+    public interface ButtonListener {
+        public void SureListener();
+    }
+}

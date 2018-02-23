@@ -1,0 +1,10 @@
+package com.topwellsoft.jnhouse_android.realtime_order;
+
+import com.topwellsoft.jnhouse_android.constant.GlobalParas;
+
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+
+public class RealtimeOrderServerAPI {
+    public final static String customerOrderMarker = GlobalParas.URL + GlobalParas.apiClass + "/realtimeOrder/customer_order";//客户发起看房订单请求
+    public final static String aroundBrokers = GlobalParas.URL + GlobalParas.apiClass + "/realtimeOrder/aroundBrokers";//客户发起看房订单请求
+}

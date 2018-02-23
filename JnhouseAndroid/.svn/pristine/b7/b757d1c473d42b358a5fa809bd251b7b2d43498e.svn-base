@@ -1,0 +1,5 @@
+include ':app'
+include ':TPAndroidUtils.baidumap'
+project(':TPAndroidUtils.baidumap').projectDir = new File('../TPAndroidUtils/baidumap')
+include ':TPAndroidUtils.androidtools'
+project(':TPAndroidUtils.androidtools').projectDir = new File('../TPAndroidUtils/androidtools')

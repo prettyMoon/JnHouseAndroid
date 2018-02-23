@@ -1,0 +1,67 @@
+package jnhouse.topwellsoft.com.jnhouse_android.adapter;
+
+import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LiuLanEntity;
+
+/**
+ * Created by chenchen on 2016/7/11.
+ */
+public class LiuLanAdapter extends BaseAdapter {
+    private Context context;
+    private List<LiuLanEntity> mlist;
+    private LayoutInflater inflater;
+
+    public LiuLanAdapter(Context context,List<LiuLanEntity> mlist){
+        this.context=context;
+        this.mlist=mlist;
+        inflater=LayoutInflater.from(context);
+
+
+    }
+
+    @Override
+    public int getCount() {
+        return 0;
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        ViewHolder holder=new ViewHolder();
+        if (view==null){
+            view=inflater.inflate(R.layout.tp_liulan_item,null);
+        }
+        Log.i("####","getView");
+        holder.broker=(TextView)view.findViewById(R.id.broker);
+        holder.broker_phone=(TextView)view.findViewById(R.id.broker_phone);
+        holder.kf_date=(TextView)view.findViewById(R.id.kf_date);
+        holder.kf_date.setText(mlist.get(i).getKf_date());
+        holder.broker_phone.setText(mlist.get(i).getBroker_phone());
+        holder.broker.setText(mlist.get(i).getBroker());
+        return view;
+    }
+
+    class ViewHolder{
+       public TextView kf_date,broker,broker_phone;
+    }
+}

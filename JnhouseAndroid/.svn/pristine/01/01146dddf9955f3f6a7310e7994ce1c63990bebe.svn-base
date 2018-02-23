@@ -1,0 +1,39 @@
+package jnhouse.topwellsoft.com.jnhouse_android.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by Administrator on 2016/7/14.
+ */
+public class AgentEntity implements Serializable {
+    private String broker_id;//经纪人id,
+    private String realname;// 经纪人姓名，
+    private String avatar;// 经纪人头像，
+    private String company_name;//所属门店，
+    private String zh_p;//好评率，
+    private String pfsum;//总评数量
+
+    public String getBroker_id() {
+        return broker_id;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public String getZh_p() {
+        return zh_p;
+    }
+
+    public String getPfsum() {
+        return pfsum;
+    }
+}

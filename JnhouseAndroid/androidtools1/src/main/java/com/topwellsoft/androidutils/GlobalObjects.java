@@ -1,0 +1,21 @@
+package com.topwellsoft.androidutils;
+
+import android.app.Activity;
+import android.app.Application;
+import android.util.DisplayMetrics;
+
+public class GlobalObjects {
+    public static Application theApplication;
+    public static DisplayMetrics globalDM;
+    public static String urlPrefix;
+    public static int statusBarColor;
+
+    public static void initGlobalObjects(Application application) {
+        globalDM = new DisplayMetrics();
+        //  mainActivity.
+        //        getWindowManager().getDefaultDisplay().getMetrics(globalDM);
+        theApplication = application;
+    }
+
+
+}

@@ -1,0 +1,251 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.agent;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.AgentListAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.AgentEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.AgentListEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+import jnhouse.topwellsoft.com.jnhouse_android.util.DateTimeUtils;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView;
+
+/**
+ * Created by Administrator on 2016/7/14.
+ */
+public class AgentListActivity extends Activity implements SmoothListView.ISmoothListViewListener, View.OnClickListener {
+
+    private TextView tv_title, tv_right;
+    private ImageView img_back, img_search;
+    private EditText edit_search;
+    private SmoothListView listView;
+    private AgentListEntity agentListEntity;
+    private ArrayList<AgentEntity> list;
+    private ArrayList<AgentEntity> secondlist;
+    private AgentListAdapter adapter;
+    private MyDiaLog diaLog;
+    String sort[] = {"好评率 ▲", "好评率 ▼"};
+    private boolean isDesc = true, isFirst = true;
+    private int page = 1;
+    private String str_name = "";
+    private String order = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_agent_list);
+        initView();
+        initDiaLog();
+        getAgentServerData(JnHouse_Record.Broker_List, order);
+        edit_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (edit_search.getText().toString().equals("")) {
+                    list.clear();
+                    for (int i = 0; i < secondlist.size(); i++) {
+                        list.add(secondlist.get(i));
+                    }
+                    str_name = "";
+                    secondlist.clear();
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(AgentListActivity.this, AgentCardActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", list.get(position - 1).getBroker_id());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void initDiaLog() {
+        diaLog = new MyDiaLog(AgentListActivity.this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+        diaLog.show();
+    }
+
+    private void initView() {
+        tv_title = (TextView) this.findViewById(R.id.tv_middle);
+        tv_right = (TextView) this.findViewById(R.id.tv_right);
+        img_back = (ImageView) this.findViewById(R.id.question_img_back);
+        img_search = (ImageView) this.findViewById(R.id.agent_search);
+        edit_search = (EditText) this.findViewById(R.id.edit_agent);
+        listView = (SmoothListView) this.findViewById(R.id.agent_list);
+        img_search = (ImageView) this.findViewById(R.id.agent_search);
+        list = new ArrayList<AgentEntity>();
+        secondlist = new ArrayList<AgentEntity>();
+        tv_right.setText(sort[0]);
+        tv_title.setText("经纪人");
+        img_search.setOnClickListener(this);
+        tv_right.setOnClickListener(this);
+        img_back.setOnClickListener(this);
+        img_search.setOnClickListener(this);
+        listView.setSmoothListViewListener(this);
+        listView.setLoadMoreEnable(true);
+    }
+
+    public void getAgentServerData(String url, String order) {
+        AjaxParams params = new AjaxParams();
+        params.put("broker_name", str_name);
+        this.order = order;
+        params.put("order_type", order);
+        params.put("cur_index", page + "");
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing())
+                    diaLog.dismiss();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    agentListEntity = gson.fromJson(t.toString(), new TypeToken<AgentListEntity>() {
+                    }.getType());
+                    Log.i("####", t.toString());
+                    if (agentListEntity.getData_list() == null || agentListEntity.getData_list().size() == 0) {
+                        ToastUtil.makeText(AgentListActivity.this, "暂无相关信息", ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+                    }
+                    if (page == 1) {
+                        list = agentListEntity.getData_list();
+                        adapter = new AgentListAdapter(AgentListActivity.this, list);
+                        listView.setAdapter(adapter);
+                    } else {
+                        for (int i = 0; i < agentListEntity.getData_list().size(); i++)
+                            list.add(agentListEntity.getData_list().get(i));
+                        adapter.notifyDataSetChanged();
+                    }
+                    listView.stopRefresh();
+                    if (diaLog.isShowing())
+                        diaLog.dismiss();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void setRightText() {
+        if (isDesc) {
+            tv_right.setText(sort[1]);
+            order = "1";
+        } else {
+            tv_right.setText(sort[0]);
+            order = "";
+        }
+        isDesc = !isDesc;
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listView.stopRefresh();
+                page = 1;
+                listView.setRefreshTime(DateTimeUtils.getTimeStr(DateTimeUtils.getNowTime(), "yyyy-MM-dd hh:mm:ss"));
+                getAgentServerData(JnHouse_Record.Broker_List, order);
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Log.i("####", "@@@@");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                page++;
+                listView.stopLoadMore();
+                getAgentServerData(JnHouse_Record.Broker_List, order);
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.question_img_back://返回
+                finish();
+                break;
+            case R.id.agent_search://搜索
+
+                for (int i = 0; i < list.size(); i++) {
+                    secondlist.add(list.get(i));
+                }
+                list.clear();
+                page = 1;
+                str_name = edit_search.getText().toString();
+                diaLog.show();
+                getAgentServerData(JnHouse_Record.Broker_List, order);
+                break;
+            case R.id.tv_right://排序
+                diaLog.show();
+                setRightText();
+                page = 1;
+                getAgentServerData(JnHouse_Record.Broker_List, order);
+                break;
+            default:
+                break;
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:arb="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:background="@color/tp_index_second_house_title"
+            android:gravity="center">
+
+            <jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup
+                android:id="@+id/segmented2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="10dp"
+                segmentedgroup:sc_tint_color="#FFFFFF"
+                segmentedgroup:sc_unchecked_tint_color="@color/tp_index_second_house_title"
+                segmentedgroup:sc_checked_text_color="@color/tp_index_second_house_title">
+
+                <RadioButton
+                    android:id="@+id/button21"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="马上登录"
+                    style="@style/RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/button22"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="马上注册"
+                    style="@style/RadioButton" />
+            </jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/tp_new_house_title"/>
+        <TextView
+            android:id="@+id/rent_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_gravity="center"
+            android:textColor="@color/font"
+            android:textSize="17sp"/>
+        <Button
+            android:id="@+id/rent_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Click"
+            android:textSize="17sp"
+            android:background="@color/transparent"
+            android:textColor="@color/font"/>
+    </FrameLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="期望小区："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <Button
+                    android:id="@+id/rent_choosecommunity_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawableRight="@drawable/right_community"
+                    android:hint="请选择小区"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="区域："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/cityarea_id_tv"
+                        android:textSize="15sp"
+                        android:text="城区"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <!--<TextView
+                        android:id="@+id/cityarea2_id_tv"
+                        android:textSize="15sp"
+                        android:text="商圈"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="期望租金："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <Spinner
+                    android:entries="@array/rent_money"
+                    android:id="@+id/rent_money_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10dp"
+                    android:text="求租类型"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:entries="@array/rent_want_type"
+                    android:id="@+id/rent_want_type_spinner"
+                    android:padding="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/rent_room_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房屋户型:"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"/>
+                <Spinner
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/rent_room_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/room"/>
+                <TextView
+                    android:text="室"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/rent_office_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/office"/>
+                <TextView
+                    android:text="厅"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!--<Spinner
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/rent_kitchen_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/kitchen"/>-->
+                <Spinner
+                    android:padding="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/rent_toilet_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/toilet"/>
+                <TextView
+                    android:text="卫"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="建筑面积"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:textColor="@color/font_black_4"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/rent_measure_et"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平米"
+                    android:layout_marginRight="10dp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="层"
+                        android:layout_weight="0.1"/>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_marginLeft="60dp"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="第"/>
+                    <EditText
+                        android:textColor="@color/font_black_4"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/rent_floor_et"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:inputType="number"
+                        android:textSize="15sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/textView1"
+                        android:layout_toStartOf="@+id/textView1" />
+                </RelativeLayout>
+            </LinearLayout>-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="配套设施:"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/bed"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="家具"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/television"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="空调"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/net"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="热水器"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/heater"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="电视机"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/btn5"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="床铺"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/fridge"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="沙发"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/air_conditioner"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="冰箱"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/heating"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="宽带"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/washer"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="洗衣机"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/btn10"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="厨具"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标题:"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:hint="6-30个字"
+                    android:id="@+id/rent_title_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:background="@color/white"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房源描述:"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/rent_description_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawableRight="@drawable/right_community"
+                    android:hint="周边环境，交通状况等"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人:"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/rent_contacts_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:background="@color/white"
+                    android:textSize="15sp"/>
+
+                <RadioGroup
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/sex_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/contacts_man_rb"
+                        android:text="先生"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/contacts_woman_rb"
+                        android:text="女士"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式:"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:id="@+id/rent_phone_et"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:background="@color/white"
+                    android:inputType="phone"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <CheckBox
+                    android:background="@color/white"
+                    android:id="@+id/rent_choose_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选择经纪人(选择指定经纪人或不指定)"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:id="@+id/rent_checkbox_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:id="@+id/rent_agent_one_ib"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/rent_agent_two_ib"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/rent_agent_three_ib"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <Button
+                android:id="@+id/rent_release_bt"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/tp_index_second_house_title"
+                android:text="发布"
+                android:textSize="15sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

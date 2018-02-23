@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/question_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:hint="提问标题"
+                android:maxLength="30"
+                android:padding="10dp"
+                android:textColorHint="@color/darkgray"
+                android:textSize="@dimen/consult_ts_middle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_4" />
+
+            <EditText
+                android:id="@+id/edit_addition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top|left"
+                android:hint="输入您的提问"
+                android:lines="10"
+                android:maxLength="100"
+                android:padding="10dp"
+                android:textColorHint="@color/darkgray"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/gray_transparent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="问题分类"
+                android:textColor="#000000"
+                android:textSize="@dimen/consult_ts_large" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort0"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort1"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort2"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort3"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort4"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort5"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_publish"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/btn_state"
+                android:text="发布"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/consult_ts_large" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

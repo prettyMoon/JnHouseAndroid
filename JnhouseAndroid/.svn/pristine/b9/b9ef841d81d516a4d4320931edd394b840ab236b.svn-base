@@ -1,0 +1,310 @@
+package jnhouse.topwellsoft.com.jnhouse_android.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * Created by chenchen on 2016/6/27.
+ */
+public class RentHouseDetailEntity implements Serializable {
+    private String id;
+    private String house_title;// 房源标题
+    private String house_feature;//房源特色
+    private String house_price;//租金
+    private String house_deposit;// 付款方式
+    private String rent_type;// 租赁方式
+    private String house_room;// 户型
+    private String house_totalarea;//面积
+    private String house_floor;//楼层
+    private String house_toward;//朝向
+    private String house_fitment;//装修
+    private String house_support;//配套设施
+    private String created;//创建时间
+    private String updated;//更新时间
+    private String house_desc;//房源描述
+    private String price_type;//商铺写字楼租金类型
+    private String borough_id;//小区id
+    private String borough_name;//小区名称
+    private String broker_id;//置业顾问id
+    private String avatar;//头像
+    private String realname;//置业顾问真实姓名
+    private String broker_mobile;//置业顾问电话
+    private String area_name;//城区
+    private String trade_name;//商圈
+
+   private String elementary_school;//小学
+  private  String  middle_school;//初高中
+   private String  borough_shop;//商场
+   private String borough_hospital;//医院
+   private String borough_bank;//银行
+   private String borough_bus;//交通路线
+  private  String layout_map;
+    private List<RentHousePicEntity> pic_list;
+    private List<RentHouselyEntity> lylist;
+
+    public String getLayout_map() {
+        return layout_map;
+    }
+
+    public void setLayout_map(String layout_map) {
+        this.layout_map = layout_map;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getHouse_title() {
+        return house_title;
+    }
+
+    public void setHouse_title(String house_title) {
+        this.house_title = house_title;
+    }
+
+    public String getHouse_feature() {
+        return house_feature;
+    }
+
+    public void setHouse_feature(String house_feature) {
+        this.house_feature = house_feature;
+    }
+
+    public String getHouse_price() {
+        return house_price;
+    }
+
+    public void setHouse_price(String house_price) {
+        this.house_price = house_price;
+    }
+
+    public String getHouse_deposit() {
+        return house_deposit;
+    }
+
+    public void setHouse_deposit(String house_deposit) {
+        this.house_deposit = house_deposit;
+    }
+
+    public String getRent_type() {
+        return rent_type;
+    }
+
+    public void setRent_type(String rent_type) {
+        this.rent_type = rent_type;
+    }
+
+    public String getHouse_room() {
+        return house_room;
+    }
+
+    public void setHouse_room(String house_room) {
+        this.house_room = house_room;
+    }
+
+    public String getHouse_totalarea() {
+        return house_totalarea;
+    }
+
+    public void setHouse_totalarea(String house_totalarea) {
+        this.house_totalarea = house_totalarea;
+    }
+
+    public String getHouse_floor() {
+        return house_floor;
+    }
+
+    public void setHouse_floor(String house_floor) {
+        this.house_floor = house_floor;
+    }
+
+    public String getHouse_toward() {
+        return house_toward;
+    }
+
+    public void setHouse_toward(String house_toward) {
+        this.house_toward = house_toward;
+    }
+
+    public String getHouse_fitment() {
+        return house_fitment;
+    }
+
+    public void setHouse_fitment(String house_fitment) {
+        this.house_fitment = house_fitment;
+    }
+
+    public String getHouse_support() {
+        return house_support;
+    }
+
+    public void setHouse_support(String house_support) {
+        this.house_support = house_support;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getHouse_desc() {
+        return house_desc;
+    }
+
+    public void setHouse_desc(String house_desc) {
+        this.house_desc = house_desc;
+    }
+
+    public String getPrice_type() {
+        return price_type;
+    }
+
+    public void setPrice_type(String price_type) {
+        this.price_type = price_type;
+    }
+
+    public String getBorough_id() {
+        return borough_id;
+    }
+
+    public void setBorough_id(String borough_id) {
+        this.borough_id = borough_id;
+    }
+
+    public String getBorough_name() {
+        return borough_name;
+    }
+
+    public void setBorough_name(String borough_name) {
+        this.borough_name = borough_name;
+    }
+
+    public String getBroker_id() {
+        return broker_id;
+    }
+
+    public void setBroker_id(String broker_id) {
+        this.broker_id = broker_id;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getArea_name() {
+        return area_name;
+    }
+
+    public void setArea_name(String area_name) {
+        this.area_name = area_name;
+    }
+
+
+
+    public List<RentHouselyEntity> getLylist() {
+        return lylist;
+    }
+
+    public void setLylist(List<RentHouselyEntity> lylist) {
+        this.lylist = lylist;
+    }
+
+    public String getTrade_name() {
+        return trade_name;
+    }
+
+    public void setTrade_name(String trade_name) {
+        this.trade_name = trade_name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getBroker_mobile() {
+        return broker_mobile;
+    }
+
+    public void setBroker_mobile(String broker_mobile) {
+        this.broker_mobile = broker_mobile;
+    }
+
+    public List<RentHousePicEntity> getPic_list() {
+        return pic_list;
+    }
+
+    public void setPic_list(List<RentHousePicEntity> pic_list) {
+        this.pic_list = pic_list;
+    }
+
+    public String getElementary_school() {
+        return elementary_school;
+    }
+
+    public void setElementary_school(String elementary_school) {
+        this.elementary_school = elementary_school;
+    }
+
+    public String getMiddle_school() {
+        return middle_school;
+    }
+
+    public void setMiddle_school(String middle_school) {
+        this.middle_school = middle_school;
+    }
+
+    public String getBorough_shop() {
+        return borough_shop;
+    }
+
+    public void setBorough_shop(String borough_shop) {
+        this.borough_shop = borough_shop;
+    }
+
+    public String getBorough_hospital() {
+        return borough_hospital;
+    }
+
+    public void setBorough_hospital(String borough_hospital) {
+        this.borough_hospital = borough_hospital;
+    }
+
+    public String getBorough_bank() {
+        return borough_bank;
+    }
+
+    public void setBorough_bank(String borough_bank) {
+        this.borough_bank = borough_bank;
+    }
+
+    public String getBorough_bus() {
+        return borough_bus;
+    }
+
+    public void setBorough_bus(String borough_bus) {
+        this.borough_bus = borough_bus;
+    }
+}

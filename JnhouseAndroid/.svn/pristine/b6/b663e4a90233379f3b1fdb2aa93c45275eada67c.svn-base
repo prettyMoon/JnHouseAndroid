@@ -1,0 +1,392 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.new_house;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.StyleUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.NewHouseAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.FilterEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.FilterNewHouseData;
+import jnhouse.topwellsoft.com.jnhouse_android.model.FilterTwoEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.NewHouseEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.NewHouseList;
+import jnhouse.topwellsoft.com.jnhouse_android.util.CustomProgressDialog;
+import jnhouse.topwellsoft.com.jnhouse_android.util.DateTimeUtils;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ModelUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.view.FilterNewHouseView;
+import jnhouse.topwellsoft.com.jnhouse_android.view.HeaderFilterViewView;
+import jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView;
+
+/**
+ * Created by admin on 2016/6/12.
+ */
+public class IndexNewHouse extends Activity implements  SmoothListView.ISmoothListViewListener, View.OnClickListener {
+    private SmoothListView smoothListView;
+    private FilterNewHouseView fvTopFilter;
+    private Context mContext;
+    private Activity mActivity;
+    private FilterNewHouseData filterData;
+    private LinearLayout new_house_detail;
+    private EditText new_house_title_search;
+    private ImageView new_house_title_back;
+    private TextView searchAction;
+
+    private NewHouseList newHouseList;
+    private HeaderFilterViewView headerFilterViewView; // 分类筛选视图
+    private NewHouseAdapter mAdapter; // 主页数据
+    private List<NewHouseEntity> newHouseEntity = new ArrayList<>();
+    private CustomProgressDialog progressDialog;
+    private int filterPosition = -1; // 点击FilterView的位置：分类(0)、排序(1)、筛选(2)
+    private int pageIndex = 1;
+    private String area_id = "";//城区
+    private String trade_id = "";//商圈
+    private String borough_avgprice = "";//价格
+    private String price_min = "";//总价最低值
+    private String price_max = "";//总价最高值
+    private String house_feature = "";//房源特色(带,字符串)
+    private String list_sort = "";//排序
+    private String house_toward = "";//朝向
+    private String house_line = "";//环线
+    private String borough_type = "";//类型
+    private String house_room;
+    private String key_name;
+    private String borough_properties;//开盘状态
+    private List<FilterEntity> featureList = new ArrayList<FilterEntity>();
+    ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.tp_new_house);
+        fvTopFilter = (FilterNewHouseView) findViewById(R.id.new_house_top_filter);
+        new_house_detail = (LinearLayout) findViewById(R.id.second_detail_progressbar);
+        new_house_title_search = (EditText) findViewById(R.id.new_house_title_search);
+        new_house_title_search.setCursorVisible(true);
+        searchAction=(TextView)(findViewById(R.id.search_maintab_right));
+        searchAction.setOnClickListener(this);
+        new_house_title_back = (ImageView) findViewById(R.id.new_house_title_back);
+        smoothListView = (SmoothListView) findViewById(R.id.new_house_listView);
+
+
+        smoothListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NewHouseEntity newHouseEntity = mAdapter.getItem(i - 1);
+                Intent intent = new Intent();
+                intent.putExtra("houseId", newHouseEntity.getId());
+                intent.setClass(IndexNewHouse.this, IndexNewHouseDetail.class);
+                intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        new_house_title_back.setOnClickListener(this);
+        initData();
+        StyleUtils.initStatusBar(getWindow());
+        initListener();
+        initView();
+        getPDAServerData(JnHouse_Record.Key_new_house_index, "0");
+    }
+
+
+    public void initData() {
+        mContext = this;
+        mActivity = this;
+        filterData = new FilterNewHouseData();
+        filterData.setHouseType(ModelUtil.getHouseTypeData());
+        filterData.setCategory(ModelUtil.getCategoryData());
+        filterData.setFilters(ModelUtil.getFilterData());
+        filterData.setToward(ModelUtil.getHouseTowardData());
+        filterData.setListSort(ModelUtil.getListNewSortData());
+        filterData.setSorts(ModelUtil.getListNewData());
+        filterData.setLine(ModelUtil.getListNewlineData());
+        filterData.setBorough_properties(ModelUtil.getListNewPropertiesData());
+
+    }
+
+    private void initView() {
+        new_house_title_search.setVisibility(View.VISIBLE);
+        fvTopFilter.setFilterData(mActivity, filterData);
+        mAdapter = new NewHouseAdapter(this, newHouseEntity);
+        smoothListView.setAdapter(mAdapter);
+    }
+
+    private void initListener() {
+        fvTopFilter.setOnFilterClickListener(new FilterNewHouseView.OnFilterClickListener() {
+            @Override
+            public void onFilterClick(int position) {
+                filterPosition = position;
+                fvTopFilter.showFilterLayout(position);
+            }
+        });
+        fvTopFilter.setOnItemCategoryClickListener(new FilterNewHouseView.OnItemCategoryClickListener() {
+            @Override
+            public void onItemCategoryClick(FilterTwoEntity entity) {
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex = 1;
+                area_id = entity.getSelectedFilterEntity().getValue();
+                getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+            }
+        });
+        fvTopFilter.setOnItemSortClickListener(new FilterNewHouseView.OnItemSortClickListener() {
+            @Override
+            public void onItemSortClick(FilterEntity entity) {
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex = 1;
+                borough_avgprice = entity.getValue();
+                getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+            }
+        });
+        fvTopFilter.setOnClickListener(new FilterNewHouseView.OnPriceFilterClickListener() {
+            @Override
+            public void onPriceFilterClick(String min, String max) {
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex = 1;
+                borough_avgprice = "5";
+                price_min = min;
+                price_max = max;
+                getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+            }
+        });
+
+        //关键字检索 键盘回车监听
+        new_house_title_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH || (keyEvent != null && keyEvent.getKeyCode() == keyEvent.KEYCODE_ENTER)) {
+                    new_house_detail.setVisibility(View.VISIBLE);
+                    smoothListView.setVisibility(View.GONE);
+                    pageIndex = 1;
+                    key_name = new_house_title_search.getText().toString();
+                    getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        fvTopFilter.setOnItemFilterClickListener(new FilterNewHouseView.OnItemFilterClickListener() {
+            @Override
+            public void onItemFilterClick(FilterEntity entity) {
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex = 1;
+                house_room = entity.getValue();
+                getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+
+            }
+        });
+
+        fvTopFilter.setOnClickListener(new FilterNewHouseView.OnMoreFilterClickListener() {
+            @Override
+            public void onMoreFilterClick(List<String> mList1, List<String> mList2, List<String> mList3, List<String> mList4, List<String> mList5, List<String> mList6) {
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex=1;
+                house_feature = "";
+                if (mList1 != null && mList1.size() > 0) {
+                    for (int i = 0; i < mList1.size(); i++) {
+                        house_feature += mList1.get(i) + ",";
+                    }
+                }else{
+                    house_feature="";
+                }
+                if (mList2 != null && mList2.size() > 0) {
+                    house_toward = mList2.get(0);
+                }else{
+                    house_toward="";
+                }
+                if (mList3 != null && mList3.size() > 0) {
+                    borough_properties = mList3.get(0);
+                }else{
+                    borough_properties="";
+                }
+                if (mList4 != null && mList4.size() > 0) {
+                    house_line = mList4.get(0);
+                }else{
+                    house_line="";
+                }
+                if (mList5 != null && mList5.size() > 0) {
+                    borough_type = mList5.get(0);
+                }else{
+                    borough_type="";
+                }
+                if (mList6 != null && mList6.size() > 0) {
+                    list_sort = mList6.get(0);
+                }else{
+                    list_sort="";
+                }
+
+                getPDAServerData(JnHouse_Record.Key_new_house_index, "1");
+            }
+        });
+        smoothListView.setRefreshEnable(true);
+        smoothListView.setLoadMoreEnable(true);
+        smoothListView.setSmoothListViewListener(this);
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
+    @Override
+    public void onRefresh() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                smoothListView.stopRefresh();
+                smoothListView.setRefreshTime(DateTimeUtils.getTimeStr(DateTimeUtils.getNowTime(), "yyyy-MM-dd hh:mm:ss"));
+                pageIndex = 1;
+                getPDAServerData(JnHouse_Record.Key_new_house_list, "1");
+            }
+        }, 2000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                smoothListView.stopLoadMore();
+                pageIndex = pageIndex + 1;
+                getPDAServerData(JnHouse_Record.Key_new_house_list, "0");
+            }
+        }, 2000);
+    }
+
+    //下载的方法
+    public void getPDAServerData(String url, final String flag) {
+        AjaxParams params = new AjaxParams();
+        params.put("pageIndex", pageIndex + "");
+        params.put("key_name", key_name);//关键字检索
+        params.put("area_id", area_id);//城区
+        params.put("trade_id", trade_id);//商圈
+        params.put("borough_avgprice", borough_avgprice);//价格
+        params.put("price_min", price_min);//最小
+        params.put("price_max", price_max);//最大
+        params.put("house_room", house_room);//房型
+        if (house_feature != null && !house_feature.equals("")) {
+            params.put("house_feature", house_feature.substring(0, house_feature.length() - 1));//房源特色(带,字符串)
+        } else {
+            params.put("house_feature", "");//房源特色(带,字符串)
+        }
+        params.put("list_sort", list_sort);//排序
+        params.put("house_toward", house_toward);//朝向
+        params.put("borough_type", borough_type);//类型
+        params.put("house_line", house_line);//环线
+        params.put("borough_properties", borough_properties);//开盘状态
+        FinalHttp fp = new FinalHttp();
+        fp.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                new_house_detail.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+
+            @Override
+            public void onSuccess(Object o) {
+                try {
+                    JSONObject json = new JSONObject(o.toString());
+                    Gson gson = new Gson();
+                    NewHouseList newHouseList = gson.fromJson(o.toString(), new TypeToken<NewHouseList>() {
+                    }.getType());
+                    if (newHouseList.getData_list() != null && newHouseList.getData_list().size() > 0) {
+                        new_house_detail.setVisibility(View.GONE);
+                        smoothListView.setVisibility(View.VISIBLE);
+                        smoothListView.setLoadMoreEnable(newHouseList.getData_list().size() > mAdapter.ONE_REQUEST_COUNT);
+                        if (flag.equals("0")) {
+                            mAdapter.setData(newHouseList.getData_list());
+                        } else {
+                            mAdapter.setDataFilter(newHouseList.getData_list());
+                        }
+                    } else {
+                        new_house_detail.setVisibility(View.VISIBLE);
+                        if (pageIndex > 1) {
+                            pageIndex = pageIndex - 1;
+                        }
+                        ToastUtil.makeText(IndexNewHouse.this, "没有符合条件的房源",
+                                ToastUtil.LENGTH_SHORT)
+                                .setAnimation(R.style.PopToast).show();
+                           new_house_detail.setVisibility(View.GONE);
+
+                    }
+                    if (flag.equals("0")) {
+                        if (newHouseList.getFeature_list() != null && newHouseList.getFeature_list().size() > 0) {
+                            for (int i = 0; i < newHouseList.getFeature_list().size(); i++) {
+                                FilterEntity filterEntity = new FilterEntity();
+                                filterEntity.setKey(newHouseList.getFeature_list().get(i).getDi_caption());
+                                filterEntity.setValue(newHouseList.getFeature_list().get(i).getDi_value());
+                                featureList.add(filterEntity);
+                            }
+                        }
+                        filterData.setFeature(featureList);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.new_house_title_back:
+                onBackPressed();
+                break;
+            case R.id.search_maintab_right:
+                new_house_detail.setVisibility(View.VISIBLE);
+                smoothListView.setVisibility(View.GONE);
+                pageIndex = 1;
+                key_name = new_house_title_search.getText().toString();
+                getPDAServerData(JnHouse_Record.Key_new_house_list, "1");
+                break;
+        }
+    }
+}

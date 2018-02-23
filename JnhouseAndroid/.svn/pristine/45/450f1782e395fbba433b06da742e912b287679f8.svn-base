@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/tp_index_second_house_title">
+
+    <ImageView
+    android:id="@+id/index_second_house_title_back"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+       android:background="@drawable/back"
+        android:layout_gravity="center_vertical" />
+
+    <EditText
+        android:id="@+id/index_second_house_title_search"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/font_black_5"
+        android:cursorVisible="false"
+        android:paddingLeft="3dp"
+        android:visibility="gone"
+        android:hint="输入小区名"
+        android:imeOptions="actionSearch"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/index_second_house_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/index_second_house_guanzhu"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_centerVertical="true"
+       android:layout_alignParentRight="true"
+        android:textSize="17sp"
+        android:background="@drawable/guanzhu"
+        android:textColor="@color/white"
+        android:layout_marginRight="40dp"
+        android:visibility="gone"
+       />
+
+    <TextView
+        android:id="@+id/index_second_house_fenxiang"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textSize="17sp"
+        android:background="@drawable/fenxiang"
+        android:textColor="@color/white"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

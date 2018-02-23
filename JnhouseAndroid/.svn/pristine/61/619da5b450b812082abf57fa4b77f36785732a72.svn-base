@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bjta"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.release.Release">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/tp_new_house_title"/>
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:layout_gravity="center"
+            android:textColor="@color/app_font_color_highlight"
+            android:textSize="17sp"/>
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Click"
+            android:textSize="17sp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/app_font_color_highlight"/>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wzty"
+            android:id="@+id/imageView" />
+        <Button
+            android:background="@drawable/czan"
+            android:id="@+id/relative_lease_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我要出租"
+            android:textColor="@color/app_font_color_highlight"
+            android:onClick="Click"
+            android:layout_alignBottom="@+id/relative_sell_bt"
+            android:layout_alignLeft="@+id/imageView"
+            android:layout_alignStart="@+id/imageView" />
+        <Button
+            android:background="@drawable/csan"
+            android:id="@+id/relative_sell_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我要出售"
+            android:textColor="@color/app_font_color_highlight"
+            android:onClick="Click"
+            android:layout_alignRight="@+id/imageView"
+            android:layout_alignEnd="@+id/imageView"
+            android:layout_below="@+id/imageView" />
+        <Button
+            android:background="@drawable/gfan"
+            android:id="@+id/relative_buy_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我要购房"
+            android:textColor="@color/app_font_color_highlight"
+            android:onClick="Click"
+            android:layout_below="@+id/relative_lease_bt"
+            android:layout_alignLeft="@+id/relative_lease_bt"
+            android:layout_alignStart="@+id/relative_lease_bt"
+            android:layout_marginTop="49dp" />
+
+        <Button
+            android:background="@drawable/zfan"
+            android:id="@+id/relative_rent_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我要租房"
+            android:textColor="@color/app_font_color_highlight"
+            android:onClick="Click"
+            android:layout_alignBottom="@+id/relative_buy_bt"
+            android:layout_alignLeft="@+id/relative_sell_bt"
+            android:layout_alignStart="@+id/relative_sell_bt" />
+        <Button
+            android:background="@drawable/shape"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp"
+            android:id="@+id/relative_check_bt"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:text="查看我的发布"
+            android:textColor="@color/app_main_color"
+            android:onClick="Click"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

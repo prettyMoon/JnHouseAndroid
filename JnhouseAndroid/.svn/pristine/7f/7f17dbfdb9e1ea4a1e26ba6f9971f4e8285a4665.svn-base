@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:arb="http://schemas.android.com/apk/res-auto"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/app_main_color"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/map_find_house_img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@drawable/red_btn_state"
+            android:src="@drawable/icon_titlebar_back" />
+
+
+        <jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup
+            android:id="@+id/map_find_house_top_segments"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            segmentedgroup:sc_border_width="1dp"
+            segmentedgroup:sc_checked_text_color="@color/app_main_color"
+            segmentedgroup:sc_corner_radius="10dp"
+            segmentedgroup:sc_tint_color="#FFFFFF"
+            segmentedgroup:sc_unchecked_tint_color="@color/app_main_color">
+
+            <RadioButton
+                android:id="@+id/map_find_house_tab_new"
+                style="@style/RadioButton"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="新房" />
+
+            <RadioButton
+                android:id="@+id/map_find_house_tab_second"
+                style="@style/RadioButton"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="二手房" />
+
+            <RadioButton
+                android:id="@+id/map_find_house_tab_rent"
+                style="@style/RadioButton"
+                android:layout_width="70dp"
+
+                android:layout_height="wrap_content"
+                android:text="租房" />
+        </jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup>
+
+    </RelativeLayout>
+
+</LinearLayout>

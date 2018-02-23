@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		<TextView
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20sp"
+			android:text="小贴士"/>
+		<TextView
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="15sp"
+			android:text="1、横向拍照效果更佳"/>
+		<TextView
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="15sp"
+			android:text="2、每个功能键需要至少呈现三面墙（包含夹角的两面墙和地面）"/>
+		<TextView
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="15sp"
+			android:text="3、上传以下几种功能间的照片，可提高电话量"/>
+	</LinearLayout>
+
+	<GridLayout
+		android:rowCount="2"
+		android:columnCount="3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<ImageView
+				android:id="@+id/dialog_room_iv"
+				android:layout_marginLeft="10dp"
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_launcher"/>
+			<TextView
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卧室"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<ImageView
+				android:id="@+id/dialog_office_iv"
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_launcher"/>
+			<TextView
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="客厅"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:background="@drawable/ic_launcher"/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="厨房"/>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<ImageView
+
+
+				android:layout_marginLeft="10dp"
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_launcher"/>
+			<TextView
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="卫生间"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			>
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_launcher"/>
+			<TextView
+				android:layout_gravity="center"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="阳台"/>
+		</LinearLayout>
+	</GridLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+	<Button
+		android:id="@+id/btn_picture"
+			android:layout_marginStart="40dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="拍照"
+			android:layout_marginLeft="10dip"
+		/>
+    <Button
+		android:id="@+id/btn_choose"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从相册选择"
+        android:layout_marginLeft="10dip"
+        />
+    </RelativeLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/btn_cancel"
+			android:layout_marginLeft="40dp"
+			android:layout_marginRight="40dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="取消" />
+	</LinearLayout>
+
+
+
+
+</LinearLayout>

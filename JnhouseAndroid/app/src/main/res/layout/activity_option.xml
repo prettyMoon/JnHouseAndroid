@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.mine.OptionActivity">
+        <include layout="@layout/question_title"/>
+
+<!--    <EditText
+        android:background="@color/bg_pressed"
+        android:id="@+id/suggestion_et"
+        android:hint="限500字以内"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <Button
+        android:layout_marginTop="48dp"
+        android:id="@+id/suggestion_commit_btn"
+        android:background="@color/bg_pressed"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_height="44dp"
+        android:onClick="onClick"
+        android:text="提交" />-->
+
+    <WebView
+        android:id="@+id/webview_option"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
+
+
+

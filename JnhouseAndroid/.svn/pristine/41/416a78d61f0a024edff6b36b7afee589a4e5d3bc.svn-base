@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <TextView
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="45dp"
+        android:drawableRight="@drawable/index_zx_more"
+        android:text="购房指南"
+        android:textColor="@color/app_font_color_black"
+        android:textSize="16dp"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/background_white"/>
+
+

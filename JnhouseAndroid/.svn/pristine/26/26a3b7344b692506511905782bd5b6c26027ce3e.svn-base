@@ -1,0 +1,193 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.calendar;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.PreferencesUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.chat.DemoHelper;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+/**
+ * Created by Administrator on 2016/8/10.
+ */
+
+public class CalendarDetailActivity extends Activity implements View.OnClickListener {
+    @Bind(R.id.tv_name)
+    TextView tv_name;
+    @Bind(R.id.borough_name)
+    TextView borough_name;
+    @Bind(R.id.broker_name)
+    TextView broker_name;
+    @Bind(R.id.see_time)
+    TextView see_time;
+    @Bind(R.id.see_address)
+    TextView see_address;
+    @Bind(R.id.rob_house_type)
+    TextView rob_house_type;
+    @Bind(R.id.see_demand)
+    TextView see_demand;
+    @Bind(R.id.tv_call)
+    TextView tv_call;
+    @Bind(R.id.tv_message)
+    TextView tv_message;
+    @Bind(R.id.tv_chat)
+    TextView tv_chat;
+    @Bind(R.id.tv_middle)
+    TextView tv_middle;
+    @Bind(R.id.question_img_back)
+    ImageView img_back;
+    @Bind(R.id.headicon)
+    ImageView headicon;
+    private CalendarDetailEntity calendarDetailEntity;
+    private MyDiaLog diaLog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.calendar_detail);
+        ButterKnife.bind(this);
+        tv_middle.setText("详情");
+        initDialog();
+        getCalendarListDetail(JnHouse_Record.House_schedule_detail);
+    }
+
+    public void init() {
+        img_back.setOnClickListener(this);
+        tv_call.setOnClickListener(this);
+        tv_chat.setOnClickListener(this);
+        tv_message.setOnClickListener(this);
+    }
+
+    private void initDialog() {
+        diaLog = new MyDiaLog(this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+        diaLog.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.question_img_back:
+                finish();
+                break;
+            case R.id.tv_call://电话
+                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + calendarDetailEntity.getBroker_phone()));
+                startActivity(intent);
+                break;
+            case R.id.tv_chat://聊天
+                DemoHelper.startChatActivity(CalendarDetailActivity.this, calendarDetailEntity.getBroker_phone(), "notlist");
+                break;
+            case R.id.tv_message://短信
+                Uri smsToUri = Uri.parse("smsto:" + calendarDetailEntity.getBroker_phone());
+                intent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    public void getCalendarListDetail(String url) {
+        LoginEntity loginEntity = (LoginEntity) PreferencesUtils.getObject(this, "loginEntity");
+        AjaxParams params = new AjaxParams();
+        params.put("userUUID", loginEntity.getUserUUID());
+        params.put("id", getIntent().getStringExtra("id"));
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+                if (diaLog.isShowing()) {
+                    diaLog.dismiss();
+                }
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    calendarDetailEntity = gson.fromJson(t.toString(), new TypeToken<CalendarDetailEntity>() {
+                    }.getType());
+                    if (calendarDetailEntity != null) {
+                        switch (calendarDetailEntity.getCode()) {
+                            case 1:
+                                showToast("您未登录");
+                                break;
+                            case -1:
+                                showToast("异常");
+                                break;
+                            case 1302:
+                                showToast("记录不存在");
+                                break;
+                            case 0:
+                                init();
+                                tv_name.setText(getContent(calendarDetailEntity.getUser_name()));
+                                borough_name.setText(getContent(calendarDetailEntity.getBorough_name()));
+                                broker_name.setText(getContent(calendarDetailEntity.getBroker_name()));
+                                see_time.setText(getContent(calendarDetailEntity.getOrder_time()));
+                                see_address.setText(getContent(calendarDetailEntity.getOrder_title()));
+                                rob_house_type.setText(getContent(calendarDetailEntity.getHouse_type()));
+                                see_demand.setText(getContent(calendarDetailEntity.getShow_condition()));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                    if (diaLog.isShowing()) {
+                        diaLog.dismiss();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void showToast(String str) {
+        ToastUtil.makeText(this, str, ToastUtil.LENGTH_SHORT).setAnimation(R.style.PopToast).show();
+    }
+
+    public String getContent(String str) {
+        if (str == null || str.equals("")) {
+            return "未知";
+        } else {
+            return str;
+        }
+    }
+}

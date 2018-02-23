@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/tp_consult_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/consult_img_top"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#ffffff"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/consult_lr_distant"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/maintitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:gravity="center_vertical"
+                    android:text="今日头条"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <ListView
+                android:id="@+id/consult_lv_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@drawable/white_btn_state" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/consult_lr_distant"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/deal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:gravity="center_vertical"
+                    android:text="成交"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/build_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="鲁能领秀馆"
+                        android:textColor="@color/consult_textColor"
+                        android:textSize="@dimen/consult_ts_middle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="小区名府"
+                        android:textSize="@dimen/consult_ts_small" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="1px"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/darkgray" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/build_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="100"
+                            android:textColor="@color/consult_textColor"
+                            android:textSize="@dimen/consult_ts_large" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text=" 万"
+                            android:textSize="@dimen/consult_ts_middle" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="签约价格"
+                        android:textSize="@dimen/consult_ts_small" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="1px"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/darkgray" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/buile_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="05/20"
+                        android:textColor="@color/consult_textColor"
+                        android:textSize="@dimen/consult_ts_large" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="签约时间"
+                        android:textSize="@dimen/consult_ts_small" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/consult_lr_distant"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/buildmarket" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:gravity="center_vertical"
+                    android:text="楼市"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <ImageView
+                    android:id="@+id/consult_img_buildmarket"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:background="#ffffff" />
+
+                <TextView
+                    android:id="@+id/consult_build_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:layout_toRightOf="@+id/consult_img_buildmarket"
+                    android:text="龙田府邸"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+
+                <TextView
+                    android:id="@+id/pingjun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/consult_build_name"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:layout_toRightOf="@+id/consult_build_name"
+                    android:text="平均价"
+                    android:textSize="@dimen/consult_ts_small" />
+
+                <TextView
+                    android:id="@+id/consult_build_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/consult_build_name"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:layout_toRightOf="@+id/pingjun"
+                    android:text="8000"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="20sp" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/consult_build_name"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:layout_toRightOf="@+id/consult_build_price"
+                    android:text="元/平"
+                    android:textSize="@dimen/consult_ts_small" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/consult_lr_distant"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/major" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:gravity="center_vertical"
+                    android:text="专题"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <ListView
+                android:id="@+id/consult_lv_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@drawable/white_btn_state" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+
+            <LinearLayout
+                android:id="@+id/layout_review"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/consult_lr_distant"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/review" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="@dimen/consult_lr_distant"
+                    android:gravity="center_vertical"
+                    android:text="一周回顾"
+                    android:textColor="@color/consult_textColor"
+                    android:textSize="@dimen/consult_ts_large" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/darkgray" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,19 @@
+
+
+package com.topwellsoft.network;
+
+import org.json.JSONObject;
+
+public abstract class TpAjaxCallback {
+    private boolean progress = true;
+    private int rate = 1000;
+
+    public TpAjaxCallback() {
+    }
+
+
+    public void onSuccess(JSONObject t) {
+    }
+
+
+}

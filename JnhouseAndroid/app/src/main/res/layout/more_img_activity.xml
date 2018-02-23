@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_font_color_black">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/img_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/zoom_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:background="@drawable/btn_background"
+        android:src="@drawable/icon_titlebar_back" />
+
+    <TextView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_white"
+        android:text="2222"/>
+</FrameLayout>

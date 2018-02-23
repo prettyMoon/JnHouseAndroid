@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.release.ChooseCommunity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/tp_choose_community_title"/>
+        <TextView
+            android:id="@+id/rent_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="选择小区"
+            android:layout_gravity="center"
+            android:textColor="@color/font"
+            android:textSize="17sp"/>
+        <Button
+            android:id="@+id/rent_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Click"
+            android:textSize="17sp"
+            android:background="@color/transparent"
+            android:textColor="@color/font"/>
+    </FrameLayout>
+   <!-- <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+    </ScrollView>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <jnhouse.topwellsoft.com.jnhouse_android.widge.SearchView
+                android:id="@+id/main_search_layout"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content">
+
+            </jnhouse.topwellsoft.com.jnhouse_android.widge.SearchView>
+            <!--<ListView
+                android:visibility="gone"
+                android:id="@+id/main_lv_search_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>-->
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/font_black_5" />
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="附近小区"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/font_black_5" />
+        <ListView
+            android:id="@+id/choosecommunity_show_lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

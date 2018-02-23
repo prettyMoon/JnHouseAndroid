@@ -1,0 +1,177 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.release;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.BrowseListViewAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.adapter.ChooseCommunityAdapter;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.CommunityNameSearchEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.CommunityNameSearchList;
+import jnhouse.topwellsoft.com.jnhouse_android.model.MyBrowseList;
+import jnhouse.topwellsoft.com.jnhouse_android.model.SearchCommutityEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventCommunityUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.widge.SearchView;
+
+public class ChooseCommunity extends AppCompatActivity implements SearchView.SearchViewListener{
+    private ListView mListView;
+    private ChooseCommunityAdapter mAdapter;
+    private List<CommunityNameSearchEntity> mSearchList;
+    private EditText mEditText;
+    private ImageView mImageView_del;
+    private Button mButton_back;
+    private TextView mTextView_search;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose_community);
+        initView();
+
+        initData();
+
+    }
+
+    private void initData() {
+        /*mListView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();*/
+
+        mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    getPDAServerData(JnHouse_Record.Key_search, "0");
+                }
+                return true;
+            }
+        });
+    }
+
+    private void getPDAServerData(String url, final String flag) {
+        AjaxParams params = new AjaxParams();
+        params.put("bor_name",mEditText.getText().toString());
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    CommunityNameSearchList mList = gson.fromJson(t.toString(), new TypeToken<CommunityNameSearchList>() {
+                    }.getType());
+                    Log.i("#####", t.toString());
+//                    Toast.makeText(Browse.this,jsonObject.toString(),Toast.LENGTH_LONG).show();
+                    if (mList.getBor_list() != null && mList.getBor_list().size() > 0) {
+                        Log.i("#####", "if");
+                        mSearchList = mList.getBor_list();
+//                        Toast.makeText(getActivity(),"size:"+mCollectionList.size(),Toast.LENGTH_SHORT).show();
+                        Log.i("#####", "mCollectionList:" + mSearchList.toString());
+                        mAdapter = new ChooseCommunityAdapter(ChooseCommunity.this, mSearchList);
+                        Log.i("#####", "mListViewAdapter:" + mAdapter.getCount());
+                        mListView.setAdapter(mAdapter);
+                        Log.i("#####", "mListView:" + mListView.toString());
+//                        setListViewHightBaseedOnChildren(mListView);
+
+                    }
+                    if (mList.getBor_list().size() == 0){
+                        Toast.makeText(ChooseCommunity.this,"暂无数据",Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+    }
+
+    private void initView() {
+        mTextView_search = (TextView) findViewById(R.id.search_button);
+        mButton_back = (Button) findViewById(R.id.rent_back_button);
+        mListView = (ListView) findViewById(R.id.choosecommunity_show_lv );
+        mSearchList = new ArrayList<>();
+        mAdapter = new ChooseCommunityAdapter(this,mSearchList);
+        mEditText = (EditText) findViewById(R.id.search_et_input);
+        mImageView_del = (ImageView) findViewById(R.id.search_iv_delete);
+        mTextView_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPDAServerData(JnHouse_Record.Key_search, "0");
+            }
+        });
+        mButton_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        mImageView_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mEditText.setText("");
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mAdapter.getCount() != 0) {
+                    EventBus.getDefault().post(new EventCommunityUtil(mSearchList.get(i).getBor_id(),mSearchList.get(i).getBorough(),mSearchList.get(i).getCity_id(),mSearchList.get(i).getCityarea_id(),mSearchList.get(i).getCityarea2_id()));
+//                    Toast.makeText(ChooseCommunity.this,mAdapter.getItem(i).toString(),Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void onRefreshAutoComplete(String text) {
+
+    }
+
+    @Override
+    public void onSearch(String text) {
+
+    }
+}

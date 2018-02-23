@@ -1,0 +1,155 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+
+public class loan_counter extends Activity {
+
+    ViewPager pager = null;
+    PagerTabStrip tabStrip = null;
+    ArrayList<View> viewContainter = new ArrayList<View>();
+    ArrayList<String> titleContainer = new ArrayList<String>();
+    public String TAG = "tag";
+     private EditText fangjia;
+    private EditText bili;
+    private TextView year;
+
+    @SuppressLint("ResourceAsColor")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_loan_counter);
+
+        pager = (ViewPager) this.findViewById(R.id.viewpager);
+        tabStrip = (PagerTabStrip) this.findViewById(R.id.tabstrip);
+
+        //取消tab下面的长横线
+        tabStrip.setDrawFullUnderline(false);
+        //设置tab的背景色
+        tabStrip.setBackgroundColor(this.getResources().getColor(R.color.tp_index_second_house_title));
+        //设置当前tab页签的下划线颜色
+        tabStrip.setTabIndicatorColor(this.getResources().getColor(R.color.tp_index_second_house_title));
+        tabStrip.setTextSpacing(200);
+
+        View view1 = LayoutInflater.from(this).inflate(R.layout.loan_gongjijin, null);
+        View view2 = LayoutInflater.from(this).inflate(R.layout.loan_shangye, null);
+        View view3 = LayoutInflater.from(this).inflate(R.layout.loan_zuhe, null);
+
+        //viewpager开始添加view
+        viewContainter.add(view1);
+        viewContainter.add(view2);
+        viewContainter.add(view3);
+
+        //页签项
+        titleContainer.add("公积金贷款");
+       titleContainer.add("商业贷款");
+       titleContainer.add("组合贷款");
+        pager.setAdapter(new PagerAdapter() {
+
+            //viewpager中的组件数量
+            @Override
+            public int getCount() {
+                return viewContainter.size();
+            }
+            //滑动切换的时候销毁当前的组件
+            @Override
+            public void destroyItem(ViewGroup container, int position,
+                                    Object object) {
+                ((ViewPager) container).removeView(viewContainter.get(position));
+            }
+            //每次滑动的时候生成的组件
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ((ViewPager) container).addView(viewContainter.get(position));
+                return viewContainter.get(position);
+            }
+
+            @Override
+            public boolean isViewFromObject(View arg0, Object arg1) {
+                return arg0 == arg1;
+            }
+
+            @Override
+            public int getItemPosition(Object object) {
+                return super.getItemPosition(object);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titleContainer.get(position);
+            }
+        });
+
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                Log.d(TAG, "--------changed:" + arg0);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                Log.d(TAG, "-------scrolled arg0:" + arg0);
+                Log.d(TAG, "-------scrolled arg1:" + arg1);
+                Log.d(TAG, "-------scrolled arg2:" + arg2);
+            }
+
+            @Override
+            public void onPageSelected(int arg0) {
+                Log.d(TAG, "------selected:" + arg0);
+            }
+        });
+
+    }
+    public void counter(View view1) {
+        fangjia= (EditText) findViewById(R.id.fangjia);
+         String str= fangjia.getText().toString();
+
+    }
+
+public void xuanze(View view){
+    final String[] items=new String[]{"1","2","3","4","5","6","7","8","9","10"};
+    AlertDialog.Builder buider=new AlertDialog.Builder(loan_counter.this);
+    buider.setTitle("首付比例");
+    buider.setItems(items, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+         bili=(EditText) findViewById(R.id.bili);
+            bili.setText(items[i]);
+        }
+    });
+    buider.create().show();
+}
+public void year(View view){
+final String[] items=new String[30];
+    for (int i=0;i<items.length;i++){
+        items[i]=i+1+"年";
+    }
+    AlertDialog.Builder builder =new AlertDialog.Builder(loan_counter.this);
+    builder.setTitle("选择贷款年限");
+    builder.setItems(items, new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+             year=(TextView) findViewById(R.id.yearCounter);
+            year.setText(items[i]);
+        }
+    });
+    builder.create().show();
+}
+
+}

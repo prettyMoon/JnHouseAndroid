@@ -1,0 +1,157 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.secondary;
+
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.AgentDetailEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.BoroughDetail;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.question.MyDiaLog;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ImageUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+public class IndexBoroughDetail extends AppCompatActivity {
+    @Bind(R.id.borough_name)
+    TextView borough_name;//小区名
+    @Bind(R.id.borough_costs)
+    TextView borough_price;//物业费
+    @Bind(R.id.borough_time)
+    TextView borough_timee;//j建筑年代
+    @Bind(R.id.lvhua)
+    TextView borough_green_percent;//绿化率
+    @Bind(R.id.borough_business)
+    TextView borough_bussiness;//开发商
+    @Bind(R.id.borough_company)
+    TextView borough_company;//物业公司
+    @Bind(R.id.borough_address)
+    TextView borough_address;//小区地址borough_desc
+    @Bind(R.id.borough_desc)
+    TextView borough_desc;//小区描述
+    @Bind(R.id.borough_detail_vp_ad)
+    ViewPager viewPager;//小区描述
+    @Bind(R.id.web_view)
+    WebView webView;//小区描述
+    @Bind(R.id.borough_prmary_school)
+    TextView borough_prmary_school;//小学
+    @Bind(R.id.borough_high_school)
+    TextView borough_high_school;//初高中
+    @Bind(R.id.borough_market)
+    TextView borough_market;//商场
+    @Bind(R.id.borough_hospital)
+    TextView borough_hospital;//医院
+    @Bind(R.id.borough_bank)
+    TextView borough_bank;//银行
+    @Bind(R.id.borough_traffic)
+    TextView borough_traffic;//交通路线
+    @Bind(R.id.container)
+    LinearLayout container;//交通路线
+    private MyDiaLog diaLog;
+    @Bind(R.id.question_img_back)
+    ImageView img_back;//交通路线
+    @Bind(R.id.tv_middle)
+    TextView tv_title;//交通路线
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ershou_boroughdetail_layout);
+        ButterKnife.bind(this);
+        initDialog();
+        tv_title.setText("小区详情");
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        getAgentCardServerData(JnHouse_Record.Key_Borough_Detail);
+
+    }
+
+    private void initDialog() {
+        diaLog = new MyDiaLog(IndexBoroughDetail.this);
+        diaLog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        diaLog.setCancelable(true);
+        diaLog.show();
+    }
+
+    public void getAgentCardServerData(String url) {
+        AjaxParams params = new AjaxParams();
+        Log.i("########", getIntent().getStringExtra("borough_id") + "     666666");
+        params.put("house_id", getIntent().getStringExtra("borough_id"));
+        params.put("user_id", "");
+        FinalHttp fh = new FinalHttp();
+        fh.get(url, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                Log.i("####", "onFailure");
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+                try {
+                    Log.i("####", t.toString());
+                    Gson gson = new Gson();
+                    BoroughDetail boroughDetail = gson.fromJson(t.toString(), new TypeToken<BoroughDetail>() {
+                    }.getType());
+                    borough_name.setText(getContent(boroughDetail.getBorough_name()));
+                    borough_price.setText(getContent(boroughDetail.getBorough_costs()));
+                    borough_timee.setText(getContent(boroughDetail.getBorough_completion()));
+                    borough_green_percent.setText(getContent(boroughDetail.getDesc_environment()));
+                    borough_bussiness.setText(getContent(boroughDetail.getBorough_developer()));
+                    borough_company.setText(getContent(boroughDetail.getBorough_company()));
+                    borough_address.setText(getContent(boroughDetail.getBorough_address()));
+                    borough_desc.setText(getContent(boroughDetail.getDesc_support()));
+                    borough_prmary_school.setText(getContent(boroughDetail.getElementary_school()));
+                    borough_high_school.setText(getContent(boroughDetail.getMiddle_school()));
+                    borough_market.setText(getContent(boroughDetail.getBorough_shop()));
+                    borough_hospital.setText(getContent(boroughDetail.getBorough_hospital()));
+                    borough_bank.setText(getContent(boroughDetail.getBorough_bank()));
+                    borough_traffic.setText(getContent(boroughDetail.getBorough_bus()));
+//                  webView.loadDataWithBaseURL(null, boroughDetail.getContent(), "text/html", "utf-8", null);
+                    ImageUtil imageUtil = new ImageUtil(viewPager, container, IndexBoroughDetail.this);
+                    imageUtil.dealWithTheViewBorough(boroughDetail.getPic_list());
+                    if (diaLog.isShowing()) diaLog.dismiss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                }
+            }
+        });
+    }
+
+    public String getContent(String str) {
+        if (str == null || str.equals("")) {
+            return "暂无资料";
+        }
+        return str;
+    }
+}

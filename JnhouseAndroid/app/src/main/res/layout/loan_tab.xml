@@ -1,0 +1,70 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:arb="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:minHeight="80dp"
+            android:background="@color/app_main_color"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:src="@drawable/icon_titlebar_back" />
+
+            <jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup
+                android:id="@+id/segmented3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="10dp"
+                segmentedgroup:sc_tint_color="#FFFFFF"
+                segmentedgroup:sc_unchecked_tint_color="@color/app_main_color"
+                segmentedgroup:sc_checked_text_color="@color/app_main_color"
+                android:gravity="center_horizontal">
+
+                <RadioButton
+                    android:id="@+id/loan_tab_gjj"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="公积金贷款"
+                    style="@style/RadioButton"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/loan_tab_sy"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="商业贷款"
+                    style="@style/RadioButton"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/loan_tab_zh"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="组合贷款"
+                    style="@style/RadioButton"
+                    android:checked="false" />
+            </jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

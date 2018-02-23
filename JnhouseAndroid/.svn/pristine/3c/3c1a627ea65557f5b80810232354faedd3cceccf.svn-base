@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.mine.Information">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/tp_new_house_title"/>
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的个人信息"
+            android:layout_gravity="center"
+            android:textColor="@color/app_font_color_highlight"
+            android:textSize="17sp"/>
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Click"
+            android:textSize="17sp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/app_font_color_highlight"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="14dp">
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/information_headportrait_layout"
+            android:background="@color/background_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/setting_remove_tv"
+                android:layout_margin="12dp"
+                android:text="头像"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/information_headportrait_tv"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/yjt"/>
+            <jnhouse.topwellsoft.com.jnhouse_android.ui.circleimageview.CircleImageView
+                android:id="@+id/information_headportrait_iv"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/information_headportrait_tv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/tx"/>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/app_font_color_grey" />
+        <RelativeLayout
+            android:id="@+id/information_nickname_layout"
+            android:background="@color/background_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="16dp"
+                android:id="@+id/information_nickname_left_tv"
+                android:text="昵称"
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/information_nickname_tv"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/yjt"/>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="14dp">
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/information_phone_layout"
+            android:background="@color/background_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="16dp"
+                android:id="@+id/information_phone_left_tv"
+                android:text="手机号"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/information_phone_tv"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/yjt"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="14dp">
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/information_change_password_layout"
+            android:background="@color/background_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="16dp"
+                android:id="@+id/information_change_password_left_tv"
+                android:text="修改密码"
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/information_change_password_tv"
+                android:layout_alignParentRight="true"
+                android:layout_margin="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/yjt"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

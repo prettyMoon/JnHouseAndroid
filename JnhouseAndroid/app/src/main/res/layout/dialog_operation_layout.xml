@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:minHeight="100dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/dialog_rectangle_background"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textSize="15sp" />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/app_main_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|left"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_left_btn_background"
+            android:textColor="@color/app_main_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/app_main_color" />
+
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|right"
+            android:layout_weight="1"
+            android:background="@drawable/dialog_right_btn_background"
+            android:textColor="@color/app_main_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

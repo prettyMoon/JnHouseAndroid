@@ -1,0 +1,69 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.calendar;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+
+/**
+ * Created by Administrator on 2016/8/10.
+ */
+public class CalendarActivity extends FragmentActivity implements View.OnClickListener {
+    @Bind(R.id.button31)
+    RadioButton button1;
+    @Bind(R.id.button32)
+    RadioButton button2;
+    @Bind(R.id.img_back)
+    ImageView img_back;
+    private FragmentManager fm;
+    private HouseCalendarFragment onefragment;
+    private HouseHistoryFragment twofragment;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar_layout);
+        ButterKnife.bind(this);
+        fm = getSupportFragmentManager();
+        onefragment = new HouseCalendarFragment();
+        twofragment = new HouseHistoryFragment();
+
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        img_back.setOnClickListener(this);
+        String flag = getIntent().getStringExtra("flag");
+        if (flag.equals("schedule")) {
+            button1.setChecked(true);
+            fm.beginTransaction().add(R.id.calendar_container, onefragment).commit();
+        } else if (flag.equals("history")) {
+            button2.setChecked(true);
+            fm.beginTransaction().add(R.id.calendar_container, twofragment).commit();
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button31:
+                fm.beginTransaction().replace(R.id.calendar_container, onefragment).commit();
+                break;
+            case R.id.button32:
+                fm.beginTransaction().replace(R.id.calendar_container, twofragment).commit();
+                break;
+            case R.id.img_back:
+                finish();
+                break;
+            default:
+                break;
+
+        }
+    }
+}

@@ -1,0 +1,1 @@
+This module contains baidu map API, current versison:3.7.3

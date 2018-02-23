@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JnhouseAndroid.iml" filepath="$PROJECT_DIR$/JnhouseAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TPAndroidUtils/androidtools/TPAndroidUtils.androidtools.iml" filepath="$PROJECT_DIR$/../TPAndroidUtils/androidtools/TPAndroidUtils.androidtools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TPAndroidUtils/baidumap/TPAndroidUtils.baidumap.iml" filepath="$PROJECT_DIR$/../TPAndroidUtils/baidumap/TPAndroidUtils.baidumap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

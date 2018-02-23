@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bjta"
+    tools:context=".ui.mine.MyLease">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:background="@color/transparent"
+            android:id="@+id/mylease_sell_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="我的出售"
+            android:textColor="@color/tp_index_second_house_title"
+            android:onClick="Click" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:id="@+id/mylease_want_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="我的求租"
+            android:textColor="@color/tp_index_second_house_title"
+            android:onClick="Click" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:id="@+id/mylease_rent_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="我的出租"
+            android:textColor="@color/tp_index_second_house_title"
+            android:onClick="Click" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:id="@+id/mylease_buy_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="我的求购"
+            android:textColor="@color/tp_index_second_house_title"
+            android:onClick="Click" />
+    </LinearLayout>
+</RelativeLayout>

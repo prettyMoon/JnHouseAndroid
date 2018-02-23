@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/question_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/question_layout_search"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_edit_background"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp" />
+
+                <ImageView
+                    android:id="@+id/img_ttt"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="7dp"
+                    android:src="@drawable/search_icon" />
+
+                <EditText
+                    android:id="@+id/edit_ttttt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_edit_background"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="输入查询问题"
+                    android:lines="1"
+                    android:textSize="@dimen/consult_ts_small" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/divider_2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="热门提问"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/popular_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="更多"
+                    android:textColor="@color/tp_check"
+                    android:textSize="@dimen/consult_ts_middle" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_4" />
+
+            <ListView
+                android:id="@+id/listview_popular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@drawable/white_btn_state" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/divider_2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="分类"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_4" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort0"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort1"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort2"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort3"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort4"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/sort5"
+                    android:layout_width="@dimen/question_tab_width"
+                    android:layout_height="@dimen/question_tab_height"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/question_tab_bottom"
+                    android:gravity="center"
+                    android:textColor="@color/question_tab"
+                    android:textSize="@dimen/consult_ts_middle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

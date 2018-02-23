@@ -1,0 +1,684 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.release;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.PreferencesUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LeaseEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.util.Application.Configs;
+import jnhouse.topwellsoft.com.jnhouse_android.util.Bimp;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventCommunityUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.FileUtils;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ImageItem;
+import jnhouse.topwellsoft.com.jnhouse_android.util.LeaseShareBimp;
+
+import jnhouse.topwellsoft.com.jnhouse_android.util.PublicWay;
+import jnhouse.topwellsoft.com.jnhouse_android.util.Res;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+/**
+ * Created by topwellsoft on 2016/6/22.
+ */
+public class SellOffice extends Fragment implements View.OnClickListener,CompoundButton.OnCheckedChangeListener,AdapterView.OnItemSelectedListener{
+    private ImageView mImageButton_sculpture,mImageButton_agent_one,mImageButton_agent_two,mImageButton_agent_three;
+    private EditText mEditText_title,mEditText_price,mEditText_measure,mEditText_name,mEditText_description;
+    private Spinner mSpinner_type;
+    private EditText mEditText_age,mEditText_source,mEditText_contacts,mEditText_phone,mEditText_time_start,mEditText_time_end;
+    private CheckBox mCheckBox_choose;
+    private Button mButton_release,mButton_description_community,mButton_choose_community;
+    private Context mContext;
+    private LinearLayout mLinearLayout;
+    private TextView mTextView_city,mTextView_cityarea,mTextView_cityarea2;
+    private static final String tag = "SellOffice";
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int PICK_IMAGE_ACTIVITY_REQUEST_CODE = 200;
+
+    private String type;
+
+    private String borough_id;
+    private String borough_name;
+    private String city_id;
+    private String cityarea_id;
+    private String cityarea2_id;
+    private String house_price;
+    private String house_area;
+    private String house_title;
+    private String buiding_type;
+    private String house_desc;
+    private String user_name;
+    private String user_id;
+    private String user_phone;
+    private String tel_time_start;
+    private String tel_time_end;
+    private List<String> borker_id = new ArrayList<String>();
+//    private String rent_unite_type;
+
+    private GridViewDefined noScrollgridview;
+    private GridAdapter adapter;
+    private View parentView;
+    private PopupWindow pop = null;
+    private LinearLayout ll_popup;
+    public static Bitmap bimap ;
+
+    private ArrayList<String> sellPathList = new ArrayList<String>();
+    private File updateDir = null;
+    private  String path = null;
+
+    private String city;
+    private String cityarea;
+    private String cityarea2;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+        Res.init(getActivity());
+        bimap = BitmapFactory.decodeResource(
+                getResources(),
+                R.drawable.icon_addpic_unfocused);
+        PublicWay.activityList.add(getActivity());
+        parentView = getActivity().getLayoutInflater().inflate(R.layout.release_leaseshort, null);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.release_selloffice, container, false);
+
+        Init();
+        noScrollgridview = (GridViewDefined) view.findViewById(R.id.noScrollgridview);
+        noScrollgridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        adapter = new GridAdapter(getActivity());
+        adapter.update();
+        noScrollgridview.setAdapter(adapter);
+        noScrollgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                if (arg2 == LeaseShareBimp.tempSelectBitmap_leaseshare.size()) {
+                    Log.i("ddddddd", "----------");
+                    ll_popup.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.activity_translate_in));
+                    pop.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
+                } else {
+                    Intent intent = new Intent(getActivity(),
+                            SellOfficeGalleryActivity.class);
+                    intent.putExtra("position", "1");
+                    intent.putExtra("ID", arg2);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.selloffice_checkbox_linearlayout);
+//        mTextView_city = (TextView) view.findViewById(R.id.city_id_tv);
+        mTextView_cityarea = (TextView) view.findViewById(R.id.cityarea_id_tv);
+//        mTextView_cityarea2 = (TextView) view.findViewById(R.id.cityarea2_id_tv);
+        mButton_choose_community = (Button) view.findViewById(R.id.selloffice_choosecommunity_bt);
+        mButton_description_community = (Button) view.findViewById(R.id.selloffice_description_bt);
+        mImageButton_agent_one = (ImageView) view.findViewById(R.id.selloffice_agent_one_ib);
+        mImageButton_agent_two = (ImageView) view.findViewById(R.id.selloffice_agent_two_ib);
+        mImageButton_agent_three = (ImageView) view.findViewById(R.id.selloffice_agent_three_ib);
+        mEditText_title = (EditText) view.findViewById(R.id.selloffice_title_et);
+        mEditText_price = (EditText) view.findViewById(R.id.selloffice_price_et);
+        mEditText_measure = (EditText) view.findViewById(R.id.selloffice_measure_et);
+        mEditText_age = (EditText) view.findViewById(R.id.selloffice_age_et);
+        mEditText_source = (EditText) view.findViewById(R.id.selloffice_source_et);
+        mEditText_contacts = (EditText) view.findViewById(R.id.selloffice_contacts_et);
+        mEditText_phone = (EditText) view.findViewById(R.id.selloffice_phone_et);
+        mEditText_time_start = (EditText) view.findViewById(R.id.selloffice_time_start_et);
+        mEditText_time_end = (EditText) view.findViewById(R.id.selloffice_time_end_et);
+        mCheckBox_choose = (CheckBox) view.findViewById(R.id.selloffice_choose_cb);
+        mButton_release = (Button) view.findViewById(R.id.selloffice_release_bt);
+        mSpinner_type = (Spinner) view.findViewById(R.id.selloffice_type_spinner);
+
+        final LoginEntity info;
+
+        info = (LoginEntity) PreferencesUtils.getObject(getActivity(), "loginEntity");
+        mEditText_contacts.setText(info.getRealname());
+        mEditText_phone.setText(info.getUsername());
+
+        mButton_choose_community.setOnClickListener(this);
+        mButton_description_community.setOnClickListener(this);
+        mCheckBox_choose.setOnClickListener(this);
+        mButton_release.setOnClickListener(this);
+        mSpinner_type.setOnItemSelectedListener(this);
+        mLinearLayout.setVisibility(View.GONE);
+        return view;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+        type = adapterView.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(mContext, "未选中", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.selloffice_release_bt:
+                for (int i = 0; i < LeaseShareBimp.tempSelectBitmap_leaseshare.size(); i++) {
+                    saveToLocal(LeaseShareBimp.tempSelectBitmap_leaseshare.get(i).getBitmap(),i);
+                }
+                getPDAServerData();
+                break;
+            case R.id.selloffice_description_bt:
+                Intent intent_description = new Intent();
+                intent_description.setClass(getActivity(),Communitydescription.class);
+                startActivity(intent_description);
+                break;
+            case R.id.selloffice_choosecommunity_bt:
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),ChooseCommunity.class);
+                startActivity(intent);
+                break;
+            case R.id.selloffice_choose_cb:
+                if (mCheckBox_choose.isChecked()){
+                    mLinearLayout.setVisibility(View.VISIBLE);
+                } else {
+                    mLinearLayout.setVisibility(View.GONE);
+                }
+                mCheckBox_choose.setFocusable(true);
+                mCheckBox_choose.setFocusableInTouchMode(true);
+                mCheckBox_choose.requestFocus();
+                mCheckBox_choose.requestFocusFromTouch();
+                break;
+
+        }
+
+    }
+
+    public void saveToLocal(Bitmap bm,int i) {
+        Toast.makeText(getActivity(),"saveToLocal",Toast.LENGTH_LONG).show();
+
+//        for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
+        updateDir = new File(Environment.getExternalStorageDirectory(),
+                Configs.saveSellPath);
+        if (!updateDir.exists()) {
+            updateDir.mkdirs();
+        }
+        path = Environment.getExternalStorageDirectory()
+                + Configs.saveSellPath + i +".jpg";
+        Log.i("#####",path);
+        sellPathList.add(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            bm.compress(Bitmap.CompressFormat.JPEG, 75, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//            addDataToArray(fileList,new File(path));
+//        }
+    }
+
+    @SuppressLint("HandlerLeak")
+    public class GridAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+        private int selectedPosition = -1;
+        private boolean shape;
+
+        public boolean isShape() {
+            return shape;
+        }
+
+        public void setShape(boolean shape) {
+            this.shape = shape;
+        }
+
+        public GridAdapter(Context context) {
+            inflater = LayoutInflater.from(context);
+        }
+
+        public void update() {
+            loading();
+        }
+
+        public int getCount() {
+            if(LeaseShareBimp.tempSelectBitmap_leaseshare.size() == 9){
+                return 9;
+            }
+            return (LeaseShareBimp.tempSelectBitmap_leaseshare.size() + 1);
+        }
+
+        public Object getItem(int arg0) {
+            return null;
+        }
+
+        public long getItemId(int arg0) {
+            return 0;
+        }
+
+        public void setSelectedPosition(int position) {
+            selectedPosition = position;
+        }
+
+        public int getSelectedPosition() {
+            return selectedPosition;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.item_published_grida,
+                        parent, false);
+                holder = new ViewHolder();
+                holder.image = (ImageView) convertView
+                        .findViewById(R.id.item_grida_image);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            if (position ==LeaseShareBimp.tempSelectBitmap_leaseshare.size()) {
+                holder.image.setImageBitmap(BitmapFactory.decodeResource(
+                        getResources(), R.drawable.icon_addpic_unfocused));
+                if (position == 9) {
+                    holder.image.setVisibility(View.GONE);
+                }
+            } else {
+                holder.image.setImageBitmap(LeaseShareBimp.tempSelectBitmap_leaseshare.get(position).getBitmap());
+            }
+
+            return convertView;
+        }
+
+        public class ViewHolder {
+            public ImageView image;
+        }
+
+        Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        adapter.notifyDataSetChanged();
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
+
+        public void loading() {
+            new Thread(new Runnable() {
+                public void run() {
+                    while (true) {
+                        if (LeaseShareBimp.leaseShareMax == LeaseShareBimp.tempSelectBitmap_leaseshare.size()) {
+                            Message message = new Message();
+                            message.what = 1;
+                            handler.sendMessage(message);
+                            break;
+                        } else {
+                            LeaseShareBimp.leaseShareMax += 1;
+                            Message message = new Message();
+                            message.what = 1;
+                            handler.sendMessage(message);
+                        }
+                    }
+                }
+            }).start();
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+    }
+
+    public void Init() {
+
+        pop = new PopupWindow(getActivity());
+
+        View v = getActivity().getLayoutInflater().inflate(R.layout.item_popupwindows, null);
+
+        ll_popup = (LinearLayout) v.findViewById(R.id.ll_popup);
+
+        pop.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        pop.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        pop.setBackgroundDrawable(new BitmapDrawable());
+        pop.setFocusable(true);
+        pop.setOutsideTouchable(true);
+        pop.setContentView(v);
+
+        RelativeLayout parent = (RelativeLayout) v.findViewById(R.id.parent);
+        Button bt1 = (Button) v
+                .findViewById(R.id.item_popupwindows_camera);
+        Button bt2 = (Button) v
+                .findViewById(R.id.item_popupwindows_Photo);
+        Button bt3 = (Button) v
+                .findViewById(R.id.item_popupwindows_cancel);
+        parent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                photo();
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),
+                        SellOfficeAlbumActivity.class);
+                intent.putExtra("id",1);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.activity_translate_in, R.anim.activity_translate_out);
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+        bt3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                pop.dismiss();
+                ll_popup.clearAnimation();
+            }
+        });
+    }
+
+    public String getString(String s) {
+        String path = null;
+        if (s == null)
+            return "";
+        for (int i = s.length() - 1; i > 0; i++) {
+            s.charAt(i);
+        }
+        return path;
+    }
+
+    protected void onRestart() {
+        adapter.update();
+//        super.onRestart();
+    }
+
+    private static final int TAKE_PICTURE = 0x000001;
+
+    public void photo() {
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(openCameraIntent, TAKE_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case TAKE_PICTURE:
+                if (LeaseShareBimp.tempSelectBitmap_leaseshare.size() < 9 && resultCode == getActivity().RESULT_OK) {
+
+                    String fileName = String.valueOf(System.currentTimeMillis());
+                    Bitmap bm = (Bitmap) data.getExtras().get("data");
+                    FileUtils.saveBitmap(bm, fileName);
+
+                    ImageItem takePhoto = new ImageItem();
+                    takePhoto.setBitmap(bm);
+                    LeaseShareBimp.tempSelectBitmap_leaseshare.add(takePhoto);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onRestart();
+    }
+
+    public void getPDAServerData() {
+        try {
+            LoginEntity info = (LoginEntity) PreferencesUtils.getObject(getActivity(),"loginEntity");
+            AjaxParams params = new AjaxParams();
+            params.put("userUUID", info.getUserUUID());
+            for (int i = 0; i < LeaseShareBimp.tempSelectBitmap_leaseshare.size(); i++) {
+                params.put("pictures",new File(sellPathList.get(i)));
+            }
+            params.put("borough_id", borough_id);
+            params.put("borough_name", mButton_choose_community.getText().toString().trim());
+            params.put("city_id", city);
+            params.put("cityarea_id", cityarea);
+            params.put("cityarea2_id", cityarea2);
+            params.put("house_price", mEditText_price.getText().toString().trim());
+            params.put("house_area", mEditText_measure.getText().toString().trim());
+            params.put("house_title", mEditText_title.getText().toString().trim());
+//        params.put("house_topfloor", mEditText_measure.getText().toString().trim());
+//        params.put("house_floor", mEditText_floor.getText().toString().trim());
+//        params.put("house_toward", mEditText_floor.getText().toString().trim());
+//        params.put("house_fitment", mEditText_floor.getText().toString().trim());
+            if (type.equals("普通写字楼")){
+                params.put("buiding_type", "0");
+            }
+            if (type.equals("商务公寓")){
+                params.put("buiding_type", "1");
+            }
+            if (type.equals("商务酒店")){
+                params.put("buiding_type", "2");
+            }
+            if (type.equals("其他")){
+                params.put("buiding_type", "3");
+            }
+            params.put("house_desc", mButton_description_community.getText().toString().trim());
+            params.put("user_name", info.getRealname().toString());
+            params.put("user_id", info.getUser_id().toString());
+            params.put("user_phone", info.getUsername().toString());
+            params.put("tel_time_start", mEditText_time_start.getText().toString().trim());
+            params.put("tel_time_end", mEditText_time_end.getText().toString().trim());
+        params.put("borker_id", "");
+//        params.put("house_room", house_room);
+//        params.put("house_hall", house_hall);
+//        params.put("house_toilet", house_toilet);
+//        params.put("house_kitchen", house_kitchen);
+//        params.put("house_balcony", rent_type.getText().toString().trim());
+//        params.put("house_topfloor", rent_type.getText().toString().trim());
+//        params.put("house_facility", rent_type.getText().toString().trim());
+//        params.put("user_id", rent_type.getText().toString().trim());
+//        params.put("rent_price_unit", rent_price_unit);
+
+
+            FinalHttp fh = new FinalHttp();
+            fh.post(JnHouse_Record.Key_sell_office, params, new AjaxCallBack<Object>() {
+
+                @Override
+                public void onLoading(long count, long current) {
+                    super.onLoading(count, current);
+                }
+
+                @Override
+                public void onFailure(Throwable t, int errorNo, String strMsg) {
+                    super.onFailure(t, errorNo, strMsg);
+                    ToastUtil.makeText(getActivity(), "委托失败",
+                            ToastUtil.LENGTH_SHORT)
+                            .setAnimation(R.style.PopToast).show();
+                }
+
+                @Override
+                public void onStart() {
+                    super.onStart();
+                }
+
+                @Override
+                public void onSuccess(Object t) {
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(t.toString());
+                        Gson gson = new Gson();
+                        LeaseEntity leaseEntity = gson.fromJson(t.toString(), new TypeToken<LeaseEntity>() {
+                        }.getType());
+
+                        if (leaseEntity != null) {
+
+                            switch (leaseEntity.getCode()) {
+
+                                case 1:
+                                    ToastUtil.makeText(getActivity(), "未登录",
+                                            ToastUtil.LENGTH_SHORT)
+                                            .setAnimation(R.style.PopToast).show();
+                                    break;
+                                case -1:
+                                    ToastUtil.makeText(getActivity(), "异常",
+                                            ToastUtil.LENGTH_SHORT)
+                                            .setAnimation(R.style.PopToast).show();
+                                    break;
+                                case 0:
+                                    ToastUtil.makeText(getActivity(), "委托成功",
+                                            ToastUtil.LENGTH_SHORT)
+                                            .setAnimation(R.style.PopToast).show();
+                                    break;
+
+                                case 902:
+                                    ToastUtil.makeText(getActivity(), "委托失败",
+                                            ToastUtil.LENGTH_SHORT)
+                                            .setAnimation(R.style.PopToast).show();
+                                    break;
+                            }
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void onEventMainThread(EventUtil eventUtil){
+        String msg=eventUtil.getMsg();
+        mButton_description_community.setText(msg);
+    }
+
+    @Subscribe
+    public void onEventMainThread(EventCommunityUtil eventUtil){
+        borough_id = eventUtil.getBor_id();
+        String msg=eventUtil.getMsg();
+        city = eventUtil.getCity();
+        cityarea = eventUtil.getCityarea();
+        cityarea2 = eventUtil.getCityarea2();
+        mButton_choose_community.setText(msg);
+//        mTextView_city.setText(city);
+        if ("29".equals(cityarea)){
+            mTextView_cityarea.setText("历下");
+        }
+        if ("30".equals(cityarea)){
+            mTextView_cityarea.setText("槐荫");
+        }
+        if ("31".equals(cityarea)){
+            mTextView_cityarea.setText("市中");
+        }
+        if ("32".equals(cityarea)){
+            mTextView_cityarea.setText("历城");
+        }
+        if ("33".equals(cityarea)){
+            mTextView_cityarea.setText("章丘");
+        }
+        if ("34".equals(cityarea)){
+            mTextView_cityarea.setText("长清");
+        }
+        if ("35".equals(cityarea)){
+            mTextView_cityarea.setText("高新");
+        }
+        if ("36".equals(cityarea)){
+            mTextView_cityarea.setText("天桥");
+        }
+        if ("37".equals(cityarea)){
+            mTextView_cityarea.setText("济阳");
+        }
+        if ("38".equals(cityarea)){
+            mTextView_cityarea.setText("商河");
+        }
+        if ("39".equals(cityarea)){
+            mTextView_cityarea.setText("平阴");
+        }
+//        mTextView_cityarea2.setText(cityarea2);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LeaseShareBimp.tempSelectBitmap_leaseshare.clear();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+
+}

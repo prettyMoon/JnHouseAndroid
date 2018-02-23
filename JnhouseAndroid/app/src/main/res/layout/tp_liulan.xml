@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/tp_index_second_house_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="本月新增"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/look_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/app_main_color"
+        android:text="0"
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="位看房客"
+        android:textSize="15sp"/>
+        </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/app_font_color_grey"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="看房日期"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="1px"
+            android:layout_height="44dp"
+            android:background="@color/app_font_color_black"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="带看人"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="1px"
+            android:layout_height="44dp"
+            android:background="@color/app_font_color_black"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联系方式"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/app_font_color_grey"></View>
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/liulan_list"></ListView>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/kf_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-07-22"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/broker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tom"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"
+          />
+        <TextView
+            android:id="@+id/broker_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1334563233"
+            android:layout_weight="0.3"
+            android:textSize="15sp"
+            android:gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

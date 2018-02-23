@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <jnhouse.topwellsoft.com.jnhouse_android.ui.release.GridViewDefined
+                    android:id="@+id/noScrollgridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:horizontalSpacing="3dp"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:verticalSpacing="5dp" >
+                </jnhouse.topwellsoft.com.jnhouse_android.ui.release.GridViewDefined>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小区名称："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <Button
+                    android:id="@+id/leaseshort_choosecommunity_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawableRight="@drawable/right_community"
+                    android:hint="请选择小区"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="区域："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <!--<TextView
+                        android:id="@+id/city_id_tv"
+                        android:textSize="15sp"
+                        android:text="城市"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
+                    <TextView
+                        android:id="@+id/cityarea_id_tv"
+                        android:textSize="15sp"
+                        android:text="城区"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <!--<TextView
+                        android:id="@+id/cityarea2_id_tv"
+                        android:textSize="15sp"
+                        android:text="商圈"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />-->
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:text="房屋类型："
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:padding="0dp"
+                    android:entries="@array/lease_short_type"
+                    android:id="@+id/leaseshort_style_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最短租期："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:background="@color/white"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/leaseshort_rent_date_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:text="天"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="租金："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:textColor="@color/font_black_4"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/leaseshort_money_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:hint="请输入租金"
+                    android:background="@color/white"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元/天"
+                    android:textSize="15sp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/leaseshort_room_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房屋户型："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"/>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:padding="0dp"
+                        style="@style/spinner_style"
+                        android:id="@+id/leaseshort_room_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/room"/>
+                    <TextView
+                        android:text="室"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:padding="0dp"
+                        android:id="@+id/leaseshort_office_spinner"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/office"/>
+                    <TextView
+                        android:text="厅"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:padding="0dp"
+                        android:id="@+id/leaseshort_kitchen_spinner"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/kitchen"/>
+                    <TextView
+                        android:text="厨"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:padding="0dp"
+                        android:id="@+id/leaseshort_toilet_spinner"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/toilet"/>
+                    <TextView
+                        android:text="卫"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="建筑面积"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:textColor="@color/font_black_4"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/leaseshort_measure_et"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="平米"
+                    android:layout_marginRight="10dp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="层"
+                        android:layout_weight="0.1"/>
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_marginLeft="60dp"
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="第"/>
+                    <EditText
+                        android:textColor="@color/font_black_4"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/leaseshort_floor_et"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:inputType="number"
+                        android:textSize="15sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/textView1"
+                        android:layout_toStartOf="@+id/textView1" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:text="最高层："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:textColor="@color/font_black_4"
+                    android:textSize="15sp"
+                    android:id="@+id/lease_short_topfloor_et"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"
+                    android:text="层"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:text="阳台个数"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/lease_short_balcony_spinner"
+                    android:padding="0dp"
+                    android:entries="@array/lease_balcony"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="配套设施:"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/bed"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="家具"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/television"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="空调"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/net"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="热水器"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/heater"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="电视机"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/btn5"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="床铺"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/fridge"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="沙发"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/air_conditioner"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="冰箱"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/heating"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="宽带"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/washer"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="洗衣机"/>
+                        <Button
+                            android:textSize="15sp"
+                            android:layout_margin="3dp"
+                            android:background="@color/font_black_6"
+                            android:layout_weight="1"
+                            android:id="@+id/btn10"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:text="厨具"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="标题："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:id="@+id/leaseshort_title_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:hint="请输入标题6-30个字"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:background="@color/white"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房源描述："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/leaseshort_description_bt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:drawableRight="@drawable/right_community"
+                    android:hint="周边环境，交通状况等"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+                <EditText
+                    android:id="@+id/leaseshort_contacts_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:background="@color/white"
+                    android:textSize="15sp"/>
+
+                <RadioGroup
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/sex_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/contacts_man_rb"
+                        android:text="先生"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/contacts_woman_rb"
+                        android:text="女士"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RadioGroup>
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式："
+                    android:textColor="@color/black" />
+                <EditText
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:id="@+id/leaseshort_phone_et"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33"
+                    android:background="@color/white"
+                    android:inputType="phone"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="接电话时间："
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:id="@+id/leaseshort_time_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_weight="0.33"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_marginRight="10dp"
+                    android:text="点"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="0.33"
+                    android:text="到"
+                    android:textSize="15sp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/font_black_4"
+                    android:id="@+id/leaseshort_time_end_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_weight="0.33"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_marginRight="10dp"
+                    android:text="点"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <CheckBox
+                    android:background="@color/white"
+                    android:id="@+id/leaseshort_choose_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选择经纪人"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <LinearLayout
+                android:id="@+id/leaseshort_checkbox_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:id="@+id/leaseshort_agent_one_ib"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/leaseshort_agent_two_ib"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/leaseshort_agent_three_ib"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/font_black_5" />
+
+            <Button
+                android:id="@+id/leaseshort_release_bt"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/tp_index_second_house_title"
+                android:text="发布"
+                android:textSize="15sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+</LinearLayout>

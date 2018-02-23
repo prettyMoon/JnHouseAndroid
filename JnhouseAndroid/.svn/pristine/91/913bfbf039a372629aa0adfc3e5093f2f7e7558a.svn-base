@@ -1,0 +1,75 @@
+
+
+package jnhouse.topwellsoft.com.jnhouse_android.util.Application;
+
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.multidex.MultiDex;
+import android.util.Log;
+
+import com.topwellsoft.androidutils.GlobalObjects;
+import com.topwellsoft.jnhouse_android.AppLoginHelper;
+import com.topwellsoft.network.NetworkUtils;
+
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.model.SecondHouselyEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.ui.chat.DemoHelper;
+
+/**
+ * Created by admin on 2016/6/8.
+ */
+public class JnHouseApplication extends Application {
+    public static Context applicationContext;
+    private static JnHouseApplication instance;
+    public static AppLoginHelper appLoginHelper;
+
+    // login user name
+    public final String PREF_USERNAME = "username";
+
+    /**
+     * nickname for current user, the nickname instead of ID be shown when user receive notification from APNs
+     */
+    public static String currentUserNick = "";
+    private List<SecondHouselyEntity> secondHouselyEntity;
+
+    public List<SecondHouselyEntity> getSecondHouselyEntity() {
+        return secondHouselyEntity;
+    }
+
+    public void setSecondHouselyEntity(List<SecondHouselyEntity> secondHouselyEntity) {
+        this.secondHouselyEntity = secondHouselyEntity;
+    }
+
+    @Override
+    public void onCreate() {
+        MultiDex.install(this);
+        super.onCreate();
+        applicationContext = this;
+        instance = this;
+        GlobalObjects.initGlobalObjects(this);
+        //初始化环信sdk
+        DemoHelper.getInstance().init(applicationContext);
+        appLoginHelper=new AppLoginHelper();
+        NetworkUtils.loginHelper=appLoginHelper;
+
+        //初始化默认登录状态
+        SharedPreferences sharedPreferences = getSharedPreferences("hx_state", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("state", true);
+        editor.commit();
+        Log.i("######", "初始化默认登录状态");
+    }
+
+    public static JnHouseApplication getInstance() {
+        return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+}

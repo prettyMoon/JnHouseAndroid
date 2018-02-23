@@ -1,0 +1,165 @@
+package com.topwellsoft.jnhouse_android.global_app;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.topwellsoft.androidutils.PreferencesUtils;
+import com.topwellsoft.jnhouse_android.map_find_house.MapFindHouseServerAPI;
+import com.topwellsoft.network.NetworkUtils;
+import com.topwellsoft.network.TpAjaxCallback;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.manage.DataCleanManager;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+
+public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView mTextView_remove, mTextView_showcache, mTextView_update, mTextView_two_dimension_code, mTextView_about;
+    private Button mButton_exit;
+    private ImageView backImage;
+    private LinearLayout cacheItem;
+    private LinearLayout checkUpdateItem;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_setting);
+        mTextView_remove = (TextView) findViewById(R.id.setting_remove_tv);
+        mTextView_showcache = (TextView) findViewById(R.id.setting_showcache_tv);
+        mTextView_update = (TextView) findViewById(R.id.setting_update_tv);
+        mTextView_two_dimension_code = (TextView) findViewById(R.id.setting_two_dimension_code_tv);
+        mTextView_about = (TextView) findViewById(R.id.setting_about_tv);
+
+        mButton_exit = (Button) findViewById(R.id.setting_exit_btn);
+        cacheItem = (LinearLayout) findViewById(R.id.setting_cathe_item);
+        checkUpdateItem = (LinearLayout) findViewById(R.id.setting_check_update);
+        backImage = (ImageView) findViewById(R.id.setting_title_back);
+        backImage.setOnClickListener(this);
+        mButton_exit.setOnClickListener(this);
+        cacheItem.setOnClickListener(this);
+        checkUpdateItem.setOnClickListener(this);
+
+        try {
+            mTextView_showcache.setText(DataCleanManager.getTotalCacheSize(this).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.setting_title_back:
+                onBackPressed();
+                break;
+            case R.id.setting_cathe_item:
+                final LayoutInflater inflater = LayoutInflater.from(this);
+                View v = inflater.inflate(R.layout.dialog_clearcache, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(v);
+                final AlertDialog dialog = builder.create();//获取dialog
+                dialog.show();//显示对话框
+                Button mButton_confirm = (Button) v.findViewById(R.id.clearcache_confirm);
+                Button mButton_cancle = (Button) v.findViewById(R.id.clearcache_concle);
+                mButton_confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DataCleanManager.clearAllCache(SettingActivity.this);
+                        try {
+                            mTextView_showcache.setText(DataCleanManager.getTotalCacheSize(SettingActivity.this).toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        dialog.cancel();
+                        Toast.makeText(SettingActivity.this, "缓存已清除成功！", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                mButton_cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+
+
+                break;
+            case R.id.setting_check_update:
+                LoginEntity info=(LoginEntity) PreferencesUtils.getObject(this,"loginEntity");
+                AjaxParams params = new AjaxParams();
+                 params.put("clientType","AndroidCustomer");
+                params.put("userUUID",info.getUserUUID());
+                NetworkUtils.asyncGet(GlobalAppServerAPI.checkUpdate, params, new TpAjaxCallback() {
+
+
+
+                    public void onSuccess(JSONObject t) {
+                        try {
+                            String str=
+                            t.getString("clientVersion");
+                            String str1=
+                                    t.getString("updateMessage");
+                            showUpdateDialog(str1);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+
+
+
+                });
+
+
+                break;
+        }
+
+    }
+
+    private void showUpdateDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("检测到新版本");
+        builder.setMessage(message);
+        builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Intent it = new Intent(SettingActivity .this, UpdateService.class);
+
+                startService(it);
+
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        builder.show();
+    }
+
+}

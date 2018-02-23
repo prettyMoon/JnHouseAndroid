@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/tp_decoration"
+        android:gravity="center"
+        android:text="找房"
+        android:textColor="@color/white"
+        android:textSize="@dimen/consult_ts_large" />
+
+    <LinearLayout
+        android:id="@+id/layout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#c0ffffff"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_see1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/tp_sell"
+                android:text="看房日程"
+                android:textColor="@color/white"
+                android:textSize="@dimen/consult_ts_middle" />
+
+            <Button
+                android:id="@+id/btn_see2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/tp_sell"
+                android:text="看房记录"
+                android:textColor="@color/white"
+                android:textSize="@dimen/consult_ts_middle" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_by_people"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/btn_pressed_green_solid"
+            android:text="以人找房"
+            android:textColor="@color/white"
+            android:textSize="@dimen/consult_ts_middle" />
+
+        <Button
+            android:id="@+id/btn_by_house"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/top_bar_normal_bg"
+            android:text="以房找人"
+            android:textColor="@color/white"
+            android:textSize="@dimen/consult_ts_middle" />
+
+        <Button
+            android:id="@+id/btn_by_store"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/tp_buy"
+            android:text="以门店找房"
+            android:textColor="@color/white"
+            android:textSize="@dimen/consult_ts_middle" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/select"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/folad_button_backgraound"
+        android:padding="10dp"
+        android:src="@drawable/folad_button" />
+</RelativeLayout>

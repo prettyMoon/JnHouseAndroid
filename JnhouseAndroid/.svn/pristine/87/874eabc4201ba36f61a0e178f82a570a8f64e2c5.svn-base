@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:arb="http://schemas.android.com/apk/res-auto"
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@color/tp_index_second_house_title">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/red_btn_state"
+                    android:padding="10dp"
+                    android:src="@drawable/back" />
+
+                <jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup
+                    android:id="@+id/segmented2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    segmentedgroup:sc_border_width="1dp"
+                    segmentedgroup:sc_checked_text_color="@color/tp_index_second_house_title"
+                    segmentedgroup:sc_corner_radius="10dp"
+                    segmentedgroup:sc_tint_color="#FFFFFF"
+                    segmentedgroup:sc_unchecked_tint_color="@color/tp_index_second_house_title">
+
+                    <RadioButton
+                        android:id="@+id/button31"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="看房日程" />
+
+                    <RadioButton
+                        android:id="@+id/button32"
+                        style="@style/RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="看房记录" />
+                </jnhouse.topwellsoft.com.jnhouse_android.view.SegmentedGroup>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/calendar_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

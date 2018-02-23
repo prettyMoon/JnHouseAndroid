@@ -1,0 +1,447 @@
+package jnhouse.topwellsoft.com.jnhouse_android.ui.release;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.topwellsoft.androidutils.PreferencesUtils;
+
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jnhouse.topwellsoft.com.jnhouse_android.R;
+import jnhouse.topwellsoft.com.jnhouse_android.constant.JnHouse_Record;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LeaseEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.model.LoginEntity;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventCommunityUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.EventUtil;
+import jnhouse.topwellsoft.com.jnhouse_android.util.ToastUtil;
+
+public class Buy extends AppCompatActivity implements View.OnClickListener{
+    private EditText mEditText_community,mEditText_location,mEditText_price,mEditText_measure,mEditText_demand,mEditText_description,mEditText_contacts,mEditText_phone,mEditText_time;
+    private Spinner mSpinner_room,mSpinner_office,mSpinner_kitchen,mSpinner_toilet,mSpinner_tpye;
+    private ImageView mImageView_agent_one,mImageView_agent_two,mImageView_agent_three;
+    private RadioGroup mRadioGroup_sex;
+    private CheckBox mCheckBox_choose;
+    private Button mButton_back,mButton_release;
+    private Button mButton_description_community,mButton_choose_community;
+    private String sex;
+    private LinearLayout mLinearLayout;
+    private TextView mTextView_city,mTextView_cityarea,mTextView_cityarea2;
+    private EditText mEditText_title,mEditText_time_start,mEditText_time_end;
+    private Spinner mSpinner_want_price;
+
+    private String borough_id;
+    private String borough_name;
+    private String sell_type;
+    private String city_id;
+    private String cityarea_id;
+    private String cityarea2_id;
+    private String want_price;
+    private String want_room;
+    private String want_hall;
+    private String want_toilet;
+    private String house_desc;
+    private String house_title;
+    private String user_name;
+    private String user_id;
+    private String user_phone;
+    private String tel_time_start;
+    private String tel_time_end;
+    private List<String> borker_id = new ArrayList<String>();
+
+    /*private String house_area;
+    private String house_topfloor;
+    private String house_floor;
+    private String house_toward;
+    private String house_fitment;
+    private String house_age;*/
+
+    private LoginEntity info;
+    private String city;
+    private String cityarea;
+    private String cityarea2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_buy);
+        EventBus.getDefault().register(this);
+        init();
+    }
+
+    private void init() {
+        mSpinner_want_price = (Spinner) findViewById(R.id.buy_want_price_spinner);
+        mLinearLayout = (LinearLayout) findViewById(R.id.buy_checkbox_linearlayout);
+//        mTextView_city = (TextView) findViewById(R.id.city_id_tv);
+        mTextView_cityarea = (TextView) findViewById(R.id.cityarea_id_tv);
+//        mTextView_cityarea2 = (TextView) findViewById(R.id.cityarea2_id_tv);
+        mButton_choose_community = (Button) findViewById(R.id.buy_choosecommunity_bt);
+        mButton_description_community = (Button) findViewById(R.id.buy_description_bt);
+//        mEditText_price = (EditText) findViewById(R.id.buy_price_et);
+//        mEditText_measure = (EditText) findViewById(R.id.buy_measure_et);
+//        mEditText_demand = (EditText) findViewById(R.id.buy_demand_et);
+        mEditText_contacts = (EditText) findViewById(R.id.buy_contacts_et);
+        mEditText_phone = (EditText) findViewById(R.id.buy_phone_et);
+        mEditText_time_start = (EditText) findViewById(R.id.buy_time_start_et);
+        mEditText_time_end = (EditText) findViewById(R.id.buy_time_end_et);
+        mEditText_title = (EditText) findViewById(R.id.buy_name_et);
+        mSpinner_room = (Spinner) findViewById(R.id.buy_room_spinner);
+        mSpinner_office = (Spinner) findViewById(R.id.buy_office_spinner);
+//        mSpinner_kitchen = (Spinner) findViewById(R.id.buy_kitchen_spinner);
+        mSpinner_toilet = (Spinner) findViewById(R.id.buy_toilet_spinner);
+        mSpinner_tpye = (Spinner) findViewById(R.id.buy_type_spinner);
+
+        mImageView_agent_one = (ImageView) findViewById(R.id.buy_agent_one_ib);
+        mImageView_agent_two = (ImageView) findViewById(R.id.buy_agent_two_ib);
+        mImageView_agent_three = (ImageView) findViewById(R.id.buy_agent_three_ib);
+
+        mRadioGroup_sex = (RadioGroup) findViewById(R.id.sex_group);
+
+        mCheckBox_choose = (CheckBox) findViewById(R.id.buy_choose_cb);
+
+        mButton_back = (Button) findViewById(R.id.buy_back_button);
+        mButton_release = (Button) findViewById(R.id.buy_release_bt);
+
+        info = (LoginEntity) PreferencesUtils.getObject(this,"loginEntity");
+        mEditText_contacts.setText(info.getRealname());
+        mEditText_phone.setText(info.getUsername());
+
+        mCheckBox_choose.setOnClickListener(this);
+        mRadioGroup_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.contacts_man_rb:
+                        sex = "先生";
+                        break;
+                    case R.id.contacts_woman_rb:
+                        sex = "女士";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        mSpinner_room.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                want_room = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mSpinner_office.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                want_hall = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*mSpinner_kitchen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String kitchen = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+        mSpinner_toilet.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                want_toilet = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mSpinner_tpye.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sell_type = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mSpinner_want_price.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                want_price = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Buy.this, "未选中", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mButton_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        mButton_choose_community.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(Buy.this,ChooseCommunity.class);
+                startActivity(intent);
+            }
+        });
+        mButton_description_community.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_description = new Intent();
+                intent_description.setClass(Buy.this,Communitydescription.class);
+                startActivity(intent_description);
+            }
+        });
+        mButton_release.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPDAServerData();
+            }
+        });
+        mLinearLayout.setVisibility(View.GONE);
+    }
+
+    public void getPDAServerData() {
+        AjaxParams params = new AjaxParams();
+        params.put("userUUID", info.getUserUUID());
+        params.put("borough_id", borough_id);
+        params.put("borough_name", mButton_choose_community.getText().toString().trim());
+        if ("二手房".equals(sell_type)){
+            params.put("sell_type", "0");
+        }
+        if ("写字楼".equals(sell_type)){
+            params.put("sell_type", "1");
+        }
+        if ("商铺".equals(sell_type)){
+            params.put("sell_type", "2");
+        }
+        params.put("city_id", city);
+        params.put("cityarea_id", cityarea);
+        params.put("cityarea2_id", cityarea2);
+        if ("30万以下".equals(want_price)){
+            params.put("want_price", "0");
+        }
+        if ("30-60万".equals(want_price)){
+            params.put("want_price", "1");
+        }
+        if ("60-100万".equals(want_price)){
+            params.put("want_price", "2");
+        }
+        if ("100-150万".equals(want_price)){
+            params.put("want_price", "3");
+        }
+        if ("150-200万".equals(want_price)){
+            params.put("want_price", "4");
+        }
+        if ("200万以上".equals(want_price)){
+            params.put("want_price", "5");
+        }
+        params.put("want_room", want_room);
+        params.put("want_hall", want_hall);
+        params.put("want_toilet", want_toilet);
+        params.put("house_desc", mButton_description_community.getText().toString().trim());
+        params.put("house_title", mEditText_title.getText().toString().trim());
+        params.put("user_name", info.getRealname().toString());
+        params.put("user_id", info.getUser_id().toString());
+        params.put("user_phone", info.getUsername().toString());
+        params.put("tel_time_start", mEditText_time_start.getText().toString().trim());
+        params.put("tel_time_end", mEditText_time_end.getText().toString().trim());
+        params.put("borker_id", "");
+
+//        params.put("house_area", mEditText_measure.getText().toString().trim());
+//        params.put("house_topfloor", mEditText_measure.getText().toString().trim());
+//        params.put("house_floor", mEditText_floor.getText().toString().trim());
+//        params.put("house_toward", mEditText_floor.getText().toString().trim());
+//        params.put("house_fitment", mEditText_floor.getText().toString().trim());
+//        params.put("house_age", mEditText_age.getText().toString().trim());
+//        params.put("house_kitchen", house_kitchen);
+//        params.put("house_balcony", rent_type.getText().toString().trim());
+//        params.put("house_topfloor", rent_type.getText().toString().trim());
+//        params.put("house_facility", rent_type.getText().toString().trim());
+//        params.put("user_id", rent_type.getText().toString().trim());
+//        params.put("rent_price_unit", rent_price_unit);
+        FinalHttp fh = new FinalHttp();
+        fh.get(JnHouse_Record.Key_buy, params, new AjaxCallBack<Object>() {
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                ToastUtil.makeText(Buy.this, "委托失败",
+                        ToastUtil.LENGTH_SHORT)
+                        .setAnimation(R.style.PopToast).show();
+            }
+
+            @Override
+            public void onLoading(long count, long current) {
+                super.onLoading(count, current);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+
+            @Override
+            public void onSuccess(Object t) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(t.toString());
+                    Gson gson = new Gson();
+                    LeaseEntity leaseEntity = gson.fromJson(t.toString(), new TypeToken<LeaseEntity>() {
+                    }.getType());
+
+                    if (leaseEntity != null) {
+
+                        switch (leaseEntity.getCode()) {
+
+                            case 1:
+                                ToastUtil.makeText(Buy.this, "未登录",
+                                        ToastUtil.LENGTH_SHORT)
+                                        .setAnimation(R.style.PopToast).show();
+                                break;
+                            case -1:
+                                ToastUtil.makeText(Buy.this, "异常",
+                                        ToastUtil.LENGTH_SHORT)
+                                        .setAnimation(R.style.PopToast).show();
+                                break;
+                            case 0:
+                                ToastUtil.makeText(Buy.this, "委托成功",
+                                        ToastUtil.LENGTH_SHORT)
+                                        .setAnimation(R.style.PopToast).show();
+                                break;
+
+                            case 904:
+                                ToastUtil.makeText(Buy.this, "委托失败",
+                                        ToastUtil.LENGTH_SHORT)
+                                        .setAnimation(R.style.PopToast).show();
+                                break;
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+
+    @Subscribe
+    public void onEventMainThread(EventUtil eventUtil){
+        String msg=eventUtil.getMsg();
+        mButton_description_community.setText(msg);
+    }
+
+    @Subscribe
+    public void onEventMainThread(EventCommunityUtil eventUtil){
+        borough_id = eventUtil.getBor_id();
+        String msg=eventUtil.getMsg();
+        city = eventUtil.getCity();
+        cityarea = eventUtil.getCityarea();
+        cityarea2 = eventUtil.getCityarea2();
+        mButton_choose_community.setText(msg);
+//        mTextView_city.setText(city);
+        if ("29".equals(cityarea)){
+            mTextView_cityarea.setText("历下");
+        }
+        if ("30".equals(cityarea)){
+            mTextView_cityarea.setText("槐荫");
+        }
+        if ("31".equals(cityarea)){
+            mTextView_cityarea.setText("市中");
+        }
+        if ("32".equals(cityarea)){
+            mTextView_cityarea.setText("历城");
+        }
+        if ("33".equals(cityarea)){
+            mTextView_cityarea.setText("章丘");
+        }
+        if ("34".equals(cityarea)){
+            mTextView_cityarea.setText("长清");
+        }
+        if ("35".equals(cityarea)){
+            mTextView_cityarea.setText("高新");
+        }
+        if ("36".equals(cityarea)){
+            mTextView_cityarea.setText("天桥");
+        }
+        if ("37".equals(cityarea)){
+            mTextView_cityarea.setText("济阳");
+        }
+        if ("38".equals(cityarea)){
+            mTextView_cityarea.setText("商河");
+        }
+        if ("39".equals(cityarea)){
+            mTextView_cityarea.setText("平阴");
+        }
+//        mTextView_cityarea2.setText(cityarea2);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.buy_choose_cb:
+                if (mCheckBox_choose.isChecked()){
+                    mLinearLayout.setVisibility(View.VISIBLE);
+                } else {
+                    mLinearLayout.setVisibility(View.GONE);
+                }
+                mCheckBox_choose.setFocusable(true);
+                mCheckBox_choose.setFocusableInTouchMode(true);
+                mCheckBox_choose.requestFocus();
+                mCheckBox_choose.requestFocusFromTouch();
+                break;
+        }
+    }
+}

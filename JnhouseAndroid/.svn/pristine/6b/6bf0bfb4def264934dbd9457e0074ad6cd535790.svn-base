@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/tab_normal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="false"   >
+
+            <include layout="@layout/header_ad_layout"/>
+
+            <jnhouse.topwellsoft.com.jnhouse_android.view.FixedGridView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/index_channel"
+                android:layout_width="match_parent"
+                android:background="@color/app_font_color_highlight"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:layout_marginBottom= "10dp"/>
+
+            <include layout="@layout/tp_index_house_aide"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawableRight="@drawable/index_zx_more"
+                android:text="购房指南"
+                android:textColor="@color/app_font_color_black"
+                android:textSize="16dp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:background="@color/app_font_color_highlight"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <ListView
+                android:id="@+id/tp_index_house_listView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scrollbars="none"
+                android:background="@color/app_font_color_highlight"/>
+
+        </LinearLayout>
+
+</FrameLayout>

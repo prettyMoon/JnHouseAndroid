@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="450dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<TextView
+    android:layout_weight="1"
+    android:id="@+id/map_borogh_name"
+    android:text="小区名"
+    android:textSize="17sp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/houseing"
+            android:text="6套房源在售"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+</LinearLayout>
+    <jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map_house_list"
+        ></jnhouse.topwellsoft.com.jnhouse_android.view.SmoothListView.SmoothListView>
+</LinearLayout>
+    </FrameLayout>
+</LinearLayout>

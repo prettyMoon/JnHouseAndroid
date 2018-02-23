@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+<FrameLayout
+    android:id="@+id/pop"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+    <ImageView
+        android:id="@+id/bg_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+       />
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#8C000000">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/brog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/background_white"
+        android:text=""/>
+        <TextView
+
+            android:id="@+id/pice_newhouse"
+            android:textColor="@color/background_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/newhouse_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/background_white"
+            android:layout_weight="1"/>
+
+            </LinearLayout>
+        <TextView
+            android:id="@+id/mianji_newhouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/background_white"
+            android:text=""/>
+        <jnhouse.topwellsoft.com.jnhouse_android.view.FluidLayout
+            android:id="@+id/map_newhousefeature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></jnhouse.topwellsoft.com.jnhouse_android.view.FluidLayout>
+    </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

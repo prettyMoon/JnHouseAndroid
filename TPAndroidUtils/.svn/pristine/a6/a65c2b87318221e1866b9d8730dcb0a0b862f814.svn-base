@@ -1,0 +1,6 @@
+package com.topwellsoft.androidutils;
+
+public interface AppLoginInterface {
+
+    public void silentLogin();
+}

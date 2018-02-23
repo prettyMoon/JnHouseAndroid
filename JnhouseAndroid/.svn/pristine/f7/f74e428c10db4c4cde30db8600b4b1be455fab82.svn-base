@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/agent_headicon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/agent_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蔡杰"
+            android:textColor="#000000"
+            android:textSize="@dimen/consult_ts_middle" />
+
+        <TextView
+            android:id="@+id/agent_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/agent_name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/agent_name"
+            android:text="店经理"
+            android:textColor="@color/consult_textColor"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/agent_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/agent_name"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="6dp"
+            android:text="无影山店"
+            android:textColor="@color/font_black_3"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/agent_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/agent_address"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            android:text="好评率："
+            android:textColor="@color/font_black_3"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/agent_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/agent_tv1"
+            android:layout_toRightOf="@+id/agent_tv1"
+            android:text="90%"
+            android:textColor="@color/consult_textColor"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/agent_evaluateNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/agent_tv1"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/agent_rate"
+            android:text="55"
+            android:textColor="@color/consult_textColor"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/agent_tv1"
+            android:layout_toRightOf="@+id/agent_evaluateNum"
+            android:text="人评价"
+            android:textColor="@color/font_black_3"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="> "
+            android:textSize="20sp" />
+    </RelativeLayout>
+</LinearLayout>

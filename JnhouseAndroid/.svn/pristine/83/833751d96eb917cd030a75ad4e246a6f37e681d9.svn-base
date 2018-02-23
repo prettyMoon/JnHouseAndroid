@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/app_main_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/consult_img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+
+            android:background="@drawable/btn_background"
+            android:src="@drawable/icon_titlebar_back" />
+
+        <TextView
+            android:id="@+id/tv_consult_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="购房指南"
+            android:textColor="@color/app_font_color_highlight"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>

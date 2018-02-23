@@ -1,0 +1,48 @@
+package jnhouse.topwellsoft.com.jnhouse_android.model;
+
+import android.graphics.drawable.Drawable;
+
+import java.io.Serializable;
+
+/**
+ * Created by Administrator on 16-5-22.
+ */
+public class ChannelEntity implements Serializable {
+
+    private String title;
+    private String tips;
+    private int image_url;
+
+    public ChannelEntity() {
+    }
+
+    public ChannelEntity(String title, String tips, int image_url) {
+        this.title = title;
+        this.tips = tips;
+        this.image_url = image_url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTips() {
+        return tips;
+    }
+
+    public void setTips(String tips) {
+        this.tips = tips;
+    }
+
+    public int getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(int image_url) {
+        this.image_url = image_url;
+    }
+}

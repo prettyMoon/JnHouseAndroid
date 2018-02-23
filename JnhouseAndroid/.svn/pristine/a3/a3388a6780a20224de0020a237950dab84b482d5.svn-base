@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/container"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.release.Communitydescription">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/tp_choose_community_title"/>
+        <TextView
+            android:id="@+id/rent_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="房源描述"
+            android:layout_gravity="center"
+            android:textColor="@color/app_font_color_grey"
+            android:textSize="17sp"/>
+        <Button
+            android:id="@+id/rent_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Click"
+            android:textSize="17sp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/app_font_color_highlight"/>
+    </FrameLayout>
+    <EditText
+        android:id="@+id/community_description_et"
+        android:background="@color/background_white"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:hint="如装修状况，配套设施，小区环境，交通状况等"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/description_confirm_bt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/app_main_color"
+            android:textColor="@color/background_white"
+            android:text="确认"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"/>
+        <Button
+            android:id="@+id/description_empty_bt"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/app_font_color_grey"
+            android:textColor="@color/background_white"
+            android:text="清空"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>

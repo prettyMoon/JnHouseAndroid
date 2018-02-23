@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="jnhouse.topwellsoft.com.jnhouse_android.ui.mine.Friend">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/tp_index_second_house_title">
+        <ImageView
+            android:id="@+id/friend_back_iv"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/back"/>
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="17sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请好友"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/tp_index_second_house_title"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/ty"/>
+        <TextView
+            android:id="@+id/friend_number_tv"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:text="1"
+            android:textSize="150sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:text="邀请码："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/friend_code_tv"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:text="1234567"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/friend_invate_btn"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:text="邀请好友"
+        android:background="@color/tp_index_second_house_title"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>
